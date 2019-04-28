@@ -1,1 +1,8 @@
-/* You can add global styles to this file, and also import other style files */
+.table td, .table th {
+  border-top: 0px !important;
+}
+
+.table tbody {
+  border-top: 0px !important;
+  border-bottom: 0px !important;
+}

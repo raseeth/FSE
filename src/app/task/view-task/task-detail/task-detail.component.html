@@ -1,0 +1,25 @@
+<div class="table-responsive">
+  <table class="table">
+    <tbody *ngFor="let task of tasks$ | async">
+        <tr>
+            <th>Task</th>
+            <th>Parent</th>
+            <th>Priority</th>
+            <th>Start</th>
+            <th>End</th>
+            <th></th>
+        </tr>
+        <tr>
+            <td>{{task.name}}</td>
+            <td>{{task.parentTaskName}}</td>
+            <td>{{task.priority}}</td>
+            <td>{{task.startDate | date: "dd/MM//yyyy"}}</td>
+            <td>{{task.endDate === null ? "" : task.endDate  | date: "dd/MM//yyyy"}}</td>
+            <td>
+              <button class="button mr-md-3" (click)="edit(task.id)">Edit</button>
+              <button class="button" (click)="endTask()">End Task</button>
+            </td>
+        </tr>
+    </tbody>
+  </table>
+</div>

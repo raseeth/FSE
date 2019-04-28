@@ -1,13 +1,26 @@
-import { Component } from "@angular/core";
-import { Router, ActivatedRoute } from "@angular/router";
-import { ROUTES } from "../routes";
+import { Component, OnInit } from "@angular/core";
+
+import { TaskService } from "../services/task.service";
+import { Observable } from "rxjs";
+import { Task } from "../models/task.model";
+import { SearchCriteria } from "../models/search-criteria.model";
 
 @Component({
     templateUrl: "./view-task.component.html"
 })
 
-export class ViewTaskComponent {
+export class ViewTaskComponent implements OnInit {
 
-    constructor(private router: Router, private route: ActivatedRoute) {
-    }
+  tasks$: Observable<Task[]>;
+
+  constructor(private taskService: TaskService) {
+  }
+
+  ngOnInit(): void {
+    this.getTasks(undefined);
+  }
+
+  private getTasks(searchCriteria: SearchCriteria): void {
+    this.tasks$ = this.taskService.query(searchCriteria);
+  }
 }
