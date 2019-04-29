@@ -11,7 +11,7 @@ import { SearchCriteriaFormModel } from "../../models/form-models/search-criteri
 
 export class SearchCriteriaComponent {
 
-  @Output() searchTask = new EventEmitter<SearchCriteria>();
+  @Output() filter = new EventEmitter<SearchCriteria>();
 
   searchCriteriaForm: FormGroup;
   searchCriteria = new SearchCriteria();
@@ -22,12 +22,12 @@ export class SearchCriteriaComponent {
 
   search(): void {
     if (this.searchCriteriaForm.valid) {
-      this.searchTask.emit(this.searchCriteria);
+      this.filter.emit(this.searchCriteria);
     }
   }
 
   reset(): void {
     this.searchCriteriaForm.reset();
-    this.searchTask.emit(new SearchCriteria());
+    this.filter.emit(new SearchCriteria());
   }
 }

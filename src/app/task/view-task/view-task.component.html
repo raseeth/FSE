@@ -1,5 +1,5 @@
 <div class="my-3">
-    <search-criteria></search-criteria>
+    <search-criteria (filter)="filter($event)"></search-criteria>
 </div>
 <div class="border-top">
   <task-detail [tasks$]="tasks$" ></task-detail>

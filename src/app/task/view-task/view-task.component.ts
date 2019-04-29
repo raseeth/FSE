@@ -17,10 +17,14 @@ export class ViewTaskComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getTasks(undefined);
+    this.tasks$ = this.getTasks(new SearchCriteria());
   }
 
-  private getTasks(searchCriteria: SearchCriteria): void {
-    this.tasks$ = this.taskService.query(searchCriteria);
+  filter(searchCriteria: SearchCriteria): void {
+    this.tasks$ = this.getTasks(searchCriteria);
+  }
+
+  private getTasks(searchCriteria: SearchCriteria): Observable<Task[]> {
+    return this.taskService.query(searchCriteria);
   }
 }
