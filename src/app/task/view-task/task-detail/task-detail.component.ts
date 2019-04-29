@@ -11,6 +11,10 @@ import { Task } from "../../models/task.model";
 export class TaskDetailComponent {
     @Input() tasks$: Observable<Task[]>;
 
+    hasParent(task: Task): boolean {
+      return task.parentTaskName && task.parentTaskName !== "";
+    }
+
     edit(id: string): void {
 
     }
