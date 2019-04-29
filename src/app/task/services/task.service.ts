@@ -7,6 +7,7 @@ import { Task } from "../models/task.model";
 @Injectable()
 export class TaskService {
 
+    // TODO: Integrate task manager api
     query(searchCriteria: SearchCriteria): Observable<Task[]> {
         return of([
             new Task("1", "task 1", "", 1, new Date("2018-01-01"), undefined, false),
