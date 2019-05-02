@@ -8,4 +8,8 @@ export class Task {
         public endDate?: Date,
         public isComplete?: boolean) {
     }
+
+    static get Default(): Task {
+      return new Task(undefined, undefined, undefined, undefined, undefined);
+    }
 }

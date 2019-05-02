@@ -9,6 +9,7 @@ import { ViewTaskComponent } from "./view-task/view-task.component";
 import { AddTaskComponent } from "./add-task/add-task.component";
 import { TaskDetailComponent } from "./view-task/task-detail/task-detail.component";
 import { SearchCriteriaComponent } from "./view-task/search-criteria/search-criteria.component";
+import { TaskFormComponent } from "./task-form/task-form.component";
 
 @NgModule({
     imports: [
@@ -21,7 +22,8 @@ import { SearchCriteriaComponent } from "./view-task/search-criteria/search-crit
         ViewTaskComponent,
         AddTaskComponent,
         TaskDetailComponent,
-        SearchCriteriaComponent
+        SearchCriteriaComponent,
+        TaskFormComponent
     ],
     providers: [
         TaskService

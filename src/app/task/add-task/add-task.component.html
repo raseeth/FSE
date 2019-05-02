@@ -1,1 +1,8 @@
-Add
+<form [formGroup]="addForm" (ngSubmit)="add()">
+  <task-form [taskForm]="taskForm"></task-form>
+
+  <div class="my-3">
+    <button>Add Task</button>
+    <button type="reset">Reset</button>
+  </div>
+</form>

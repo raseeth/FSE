@@ -15,4 +15,8 @@ export class TaskService {
             new Task("3", "task 3", "parent task 2", 3, new Date("2019-04-01"), new Date("2019-04-04"), true)
         ]);
     }
+
+    post(task: Task): Observable<any> {
+      return of(undefined);
+    }
 }

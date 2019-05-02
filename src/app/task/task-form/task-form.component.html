@@ -1,0 +1,22 @@
+<form [formGroup]="taskForm">
+  <div class="d-flex justify-content-start">
+    <label for="taskName" class="pr-3">Task:</label>
+    <input class="form-control" type="text" formControlName="taskName">
+  </div>
+  <div class="d-flex justify-content-start">
+    <label for="priority" class="pr-3">Priority:</label>
+    <input class="form-control" type="text" formControlName="priority">
+  </div>
+  <div class="d-flex justify-content-start">
+    <label for="parentTaskName" class="pr-3">Parent Task:</label>
+    <input class="form-control" type="text" formControlName="parentTaskName">
+  </div>
+  <div class="d-flex justify-content-start">
+    <label for="startDate" class="pr-3">Start Date:</label>
+    <input class="form-control" type="date" formControlName="startDate">
+  </div>
+  <div class="d-flex justify-content-start">
+    <label for="endDate" class="pr-3">End Date:</label>
+    <input class="form-control" type="date" formControlName="endDate">
+  </div>
+</form>
