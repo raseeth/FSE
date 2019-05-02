@@ -1,7 +1,8 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
-import { ROUTES } from "../routes";
-import { FormGroup, FormBuilder, FormControl } from "@angular/forms";
+import { Observable, of } from "rxjs";
+import { FormGroup, FormBuilder } from "@angular/forms";
+
 import { TaskFormModel } from "../models/form-models/task-form.model";
 import { Task } from "../models/task.model";
 import { TaskService } from "../services/task.service";
@@ -10,10 +11,12 @@ import { TaskService } from "../services/task.service";
     templateUrl: "./add-task.component.html"
 })
 
-export class AddTaskComponent {
+export class AddTaskComponent implements OnInit {
 
     addForm: FormGroup;
     formSubmitted = false;
+
+    parentTasks$: Observable<string[]>;
 
     constructor(
       private router: Router,
@@ -25,6 +28,10 @@ export class AddTaskComponent {
 
     get taskForm(): FormGroup {
       return this.addForm.get("task") as FormGroup;
+    }
+
+    ngOnInit(): void {
+      this.parentTasks$ = this.taskService.getParentTasks();
     }
 
     add(): void {

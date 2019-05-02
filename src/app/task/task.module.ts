@@ -1,6 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
 import { TaskComponent } from "./task.component";
 import { TaskService } from "./services/task.service";
@@ -14,6 +15,7 @@ import { TaskFormComponent } from "./task-form/task-form.component";
 @NgModule({
     imports: [
         CommonModule,
+        NgbModule,
         ReactiveFormsModule,
         TaskRouterModule
     ],

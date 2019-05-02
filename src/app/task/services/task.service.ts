@@ -19,4 +19,12 @@ export class TaskService {
     post(task: Task): Observable<any> {
       return of(undefined);
     }
+
+    getParentTasks(): Observable<string[]> {
+        return of([
+            "Task 1",
+            "Task 2",
+            "Task 3"
+        ]);
+    }
 }
