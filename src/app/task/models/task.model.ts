@@ -3,7 +3,7 @@ export class Task {
         public id: string,
         public name: string,
         public parentTaskName: string,
-        public priority: number,
+        public priority: number = 0,
         public startDate: Date,
         public endDate?: Date,
         public isComplete?: boolean) {
