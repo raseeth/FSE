@@ -1,23 +1,33 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { Observable, of } from "rxjs";
-import { map, debounceTime, distinctUntilChanged } from "rxjs/operators";
+import { mergeMap } from "rxjs/operators";
 
 @Component({
   selector: "task-form",
   templateUrl: "./task-form.component.html"
 })
 
-export class TaskFormComponent {
+export class TaskFormComponent implements OnInit {
   @Input() taskForm: FormGroup;
   @Input() formSubmitted: boolean;
   @Input() parentTasks: string[];
 
-  search = (text$: Observable<string>) =>
-    text$.pipe(
-      debounceTime(200),
-      distinctUntilChanged(),
-      map(term => !term ? []
-        : this.parentTasks.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
-    )
+  searchTask = "";
+  dataSource: Observable<any>;
+
+  ngOnInit(): void {
+    this.dataSource = new Observable((observer: any) => {
+                        observer.next();
+                      }).pipe(
+                        mergeMap(() => this.getSourceAsObservable(this.searchTask.toLowerCase())));
+  }
+
+  private getSourceAsObservable(task: string): Observable<any> {
+    const filteredData = this.parentTasks.filter((item: any) => {
+      return item.toLowerCase().indexOf(task) >= 0;
+    });
+
+    return of(filteredData);
+  }
 }
