@@ -1,14 +1,14 @@
 <form [formGroup]="taskForm">
   <div class="form-group row">
-    <label for="taskName" class="col-sm-2 col-form-label">Task:</label>
+    <label for="name" class="col-sm-2 col-form-label">Task:</label>
     <div class="col-sm-10">
-      <input class="form-control" type="text" formControlName="taskName">
+      <input class="form-control" type="text" formControlName="name">
     </div>
   </div>
   <div class="form-group row">
     <label for="priority" class="col-sm-2 col-form-label">Priority:</label>
     <div class="col-sm-10">
-      <input class="form-control" type="text" formControlName="priority">
+      <input class="form-control" type="number" formControlName="priority">
     </div>
   </div>
   <div class="form-group row">

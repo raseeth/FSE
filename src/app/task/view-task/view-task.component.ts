@@ -25,6 +25,6 @@ export class ViewTaskComponent implements OnInit {
   }
 
   private getTasks(searchCriteria: SearchCriteria): Observable<Task[]> {
-    return this.taskService.query(searchCriteria);
+    return this.taskService.getTasks(searchCriteria);
   }
 }

@@ -11,7 +11,7 @@ import { mergeMap } from "rxjs/operators";
 export class TaskFormComponent implements OnInit {
   @Input() taskForm: FormGroup;
   @Input() formSubmitted: boolean;
-  @Input() parentTasks: string[];
+  @Input() parentTasks: string[] = [];
 
   searchTask = "";
   dataSource: Observable<any>;
@@ -25,7 +25,7 @@ export class TaskFormComponent implements OnInit {
 
   private getSourceAsObservable(task: string): Observable<any> {
     const filteredData = this.parentTasks.filter((item: any) => {
-      return item.toLowerCase().indexOf(task) >= 0;
+      return item ? item.toLowerCase().indexOf(task) >= 0 : undefined;
     });
 
     return of(filteredData);

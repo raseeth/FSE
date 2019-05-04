@@ -3,16 +3,16 @@ import { FormControl, Validators } from "@angular/forms";
 import { Task } from "../task.model";
 
 export class TaskFormModel {
-  public taskName = new FormControl();
+  public name = new FormControl();
   public priority = new FormControl();
   public parentTaskName = new FormControl();
   public startDate = new FormControl();
   public endDate = new FormControl();
 
   constructor(task: Task) {
-    this.taskName.setValue(task.name);
-    this.taskName.valueChanges.subscribe(x => task.name = x);
-    this.taskName.setValidators([Validators.required]);
+    this.name.setValue(task.name);
+    this.name.valueChanges.subscribe(x => task.name = x);
+    this.name.setValidators([Validators.required]);
 
     this.priority.setValue(task.priority);
     this.priority.valueChanges.subscribe(x => task.priority = x);

@@ -40,7 +40,7 @@ export class AddTaskComponent implements OnInit {
         return;
       }
 
-      this.taskService.post(this.addForm.value as Task).subscribe(response => {
+      this.taskService.post(this.taskForm.value as Task).subscribe(response => {
         },
         (error) => {
           console.log("Task could not be added!.");
