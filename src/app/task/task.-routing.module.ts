@@ -5,6 +5,7 @@ import { ROUTES } from "./routes";
 import { TaskComponent } from "./task.component";
 import { ViewTaskComponent } from "./view-task/view-task.component";
 import { AddTaskComponent } from "./add-task/add-task.component";
+import { EditTaskComponent } from "./edit-task/edit-task.component";
 
 const taskRoutes: Routes = [
     { path: ROUTES.TASK, component: TaskComponent,
@@ -12,6 +13,7 @@ const taskRoutes: Routes = [
             { path: "", redirectTo: ROUTES.VIEWTASK, pathMatch: "full" },
             { path: ROUTES.VIEWTASK, component: ViewTaskComponent },
             { path: ROUTES.ADDTASK, component: AddTaskComponent },
+            { path: ROUTES.UPDATETASK + "/:id", component: EditTaskComponent }
         ],
     }
 ];

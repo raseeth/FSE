@@ -11,6 +11,7 @@ import { AddTaskComponent } from "./add-task/add-task.component";
 import { TaskDetailComponent } from "./view-task/task-detail/task-detail.component";
 import { SearchCriteriaComponent } from "./view-task/search-criteria/search-criteria.component";
 import { TaskFormComponent } from "./task-form/task-form.component";
+import { EditTaskComponent } from "./edit-task/edit-task.component";
 
 @NgModule({
     imports: [
@@ -25,7 +26,8 @@ import { TaskFormComponent } from "./task-form/task-form.component";
         AddTaskComponent,
         TaskDetailComponent,
         SearchCriteriaComponent,
-        TaskFormComponent
+        TaskFormComponent,
+        EditTaskComponent
     ],
     providers: [
         TaskService

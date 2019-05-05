@@ -22,7 +22,7 @@
               <td>{{task.endDate === null ? "" : task.endDate  | date: "dd/MM/yyyy"}}</td>
               <td>
                 <button class="btn btn-primary mr-md-3" [disabled]="task.isComplete" (click)="edit(task.id)">Edit</button>
-                <button class="btn btn-primary" [disabled]="task.isComplete" (click)="endTask()">End Task</button>
+                <button class="btn btn-primary" [disabled]="task.isComplete" (click)="endTask(task.id)">End Task</button>
               </td>
           </tr>
         </ng-container>

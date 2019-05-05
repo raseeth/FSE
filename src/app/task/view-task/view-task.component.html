@@ -2,6 +2,6 @@
     <search-criteria (filter)="filter($event)"></search-criteria>
 </div>
 <div class="border-top">
-  <task-detail [tasks$]="tasks$" ></task-detail>
+  <task-detail [tasks$]="tasks$" (refersh)="reloadTasks()"></task-detail>
 </div>
 

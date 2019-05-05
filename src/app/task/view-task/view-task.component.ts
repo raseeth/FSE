@@ -13,6 +13,8 @@ export class ViewTaskComponent implements OnInit {
 
   tasks$: Observable<Task[]>;
 
+  private searchCriteria: SearchCriteria;
+
   constructor(private taskService: TaskService) {
   }
 
@@ -24,7 +26,13 @@ export class ViewTaskComponent implements OnInit {
     this.tasks$ = this.getTasks(searchCriteria);
   }
 
+  reloadTasks(): void {
+    this.getTasks(this.searchCriteria);
+  }
+
   private getTasks(searchCriteria: SearchCriteria): Observable<Task[]> {
+    this.searchCriteria = searchCriteria;
+
     return this.taskService.getTasks(searchCriteria);
   }
 }

@@ -40,10 +40,22 @@ export class AddTaskComponent implements OnInit {
         return;
       }
 
-      this.taskService.post(this.taskForm.value as Task).subscribe(response => {
+      const task = this.getTask(this.taskForm.value);
+
+      this.taskService.post(task).subscribe(response => {
         },
         (error) => {
           console.log("Task could not be added!.");
       });
+    }
+
+    private getTask(formValue: Task): Task {
+      return new Task(
+              "",
+              formValue.name,
+              formValue.parentTaskName,
+              +formValue.priority,
+              formValue.startDate ? new Date(formValue.startDate) : undefined,
+              formValue.endDate ? new Date(formValue.endDate) : undefined);
     }
 }

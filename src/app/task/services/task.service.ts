@@ -10,6 +10,7 @@ export class TaskService {
     // TODO: Integrate task manager api
 
     private dataSource: Task[];
+    private id = 3;
 
     constructor() {
       this.dataSource = [
@@ -23,7 +24,13 @@ export class TaskService {
       return of(this.dataSource);
     }
 
+    get(id: string): Observable<Task> {
+      return of(this.dataSource.find(x => x.id === id));
+    }
+
     post(task: Task): Observable<any> {
+      this.id = this.id + 1;
+      task.id = this.id.toString();
       this.dataSource.push(task);
 
       return of(undefined);
@@ -41,7 +48,12 @@ export class TaskService {
     }
 
     endTask(id: string): Observable<any> {
-      this.dataSource.find(x => x.id === id).isComplete = true;
+      const task = this.dataSource.find(x => x.id === id);
+      if (!task.endDate) {
+        task.endDate = new Date();
+      }
+
+      task.isComplete = true;
 
       return of(undefined);
     }
