@@ -21,8 +21,8 @@
               <td>{{task.startDate | date: "dd/MM/yyyy"}}</td>
               <td>{{task.endDate === null ? "" : task.endDate  | date: "dd/MM/yyyy"}}</td>
               <td>
-                <button class="button mr-md-3" [disabled]="task.isComplete" (click)="edit(task.id)">Edit</button>
-                <button class="button" [disabled]="task.isComplete" (click)="endTask()">End Task</button>
+                <button class="btn btn-primary mr-md-3" [disabled]="task.isComplete" (click)="edit(task.id)">Edit</button>
+                <button class="btn btn-primary" [disabled]="task.isComplete" (click)="endTask()">End Task</button>
               </td>
           </tr>
         </ng-container>
