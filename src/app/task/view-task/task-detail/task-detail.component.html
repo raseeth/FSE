@@ -1,37 +1,40 @@
-<div class="table-responsive">
-  <table class="table">
-    <tbody>
-      <ng-container *ngIf="(tasks$ | async)?.length > 0; else noTasks">
-        <ng-container *ngFor="let task of tasks$ | async">
-          <tr>
-              <th>Task</th>
-              <th>Parent</th>
-              <th>Priority</th>
-              <th>Start</th>
-              <th>End</th>
-              <th></th>
-          </tr>
-          <tr>
-              <td>{{task.name}}</td>
-              <td>
-                <ng-container *ngIf="hasParent(task); else noParent">{{task.parentTaskName}}</ng-container>
-                <ng-template #noParent>This Task Has NO Parent</ng-template>
-              </td>
-              <td>{{task.priority}}</td>
-              <td>{{task.startDate | date: "dd/MM/yyyy"}}</td>
-              <td>{{task.endDate === null ? "" : task.endDate  | date: "dd/MM/yyyy"}}</td>
-              <td>
-                <button class="btn btn-primary mr-md-3" [disabled]="task.isComplete" (click)="edit(task.id)">Edit</button>
-                <button class="btn btn-primary" [disabled]="task.isComplete" (click)="endTask(task.id)">End Task</button>
-              </td>
-          </tr>
-        </ng-container>
-      </ng-container>
-      <ng-template #noTasks>
-        <tr>
-          <td>No tasks found.</td>
-        </tr>
-      </ng-template>
-    </tbody>
-  </table>
-</div>
+<ng-container *ngIf="(tasks$ | async)?.length > 0">
+    <ng-container *ngFor="let task of tasks$ | async">
+  <div class="my-3 border-bottom">
+    <div class="row">
+      <div class="col-12 col-md-8 col-lg-12">
+        <div class="row">
+          <div class="col-6 col-md-4 col-lg-2">
+            <p class="font-weight-bold">Task</p>
+            <p>{{task.name}}</p>
+          </div>
+          <div class="col-6 col-md-5 col-lg-2">
+            <p class="font-weight-bold">Parent Task</p>
+            <p>{{task.parentTaskName}}</p>
+          </div>
+          <div class="col-6 col-md-3 col-lg-1">
+            <p class="font-weight-bold">Priority</p>
+            <p>{{task.priority}}</p>
+          </div>
+          <div class="col-6 col-md-4 col-lg-2">
+            <p class="font-weight-bold">Start</p>
+            <p>{{task.startDate | date: "dd/MM/yyyy"}}</p>
+          </div>
+          <div class="col-6 col-md-5 col-lg-2">
+            <p class="font-weight-bold">End</p>
+            <p>{{task.endDate === null ? "" : task.endDate | date: "dd/MM/yyyy"}}</p>
+          </div>
+          <div class="col-lg-3 pt-0 justify-content-center align-self-center d-none d-lg-block">
+              <button class="btn btn-primary mr-lg-3" [disabled]="task.isComplete" (click)="edit(task.id)">Edit</button>
+              <button class="btn btn-primary" [disabled]="task.isComplete" (click)="endTask(task.id)">End Task</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-4 mb-3 justify-content-center align-self-center d-block d-lg-none">
+          <button class="btn btn-primary mr-3" [disabled]="task.isComplete" (click)="edit(task.id)">Edit</button>
+          <button class="btn btn-primary" [disabled]="task.isComplete" (click)="endTask(task.id)">End Task</button>
+      </div>
+    </div>
+  </div>
+  </ng-container>
+  </ng-container>
