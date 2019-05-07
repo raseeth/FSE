@@ -21,11 +21,9 @@ export class SearchCriteriaFormModel {
 
     this.priorityFrom.setValue(searchCriteria.priorityFrom);
     this.priorityFrom.valueChanges.subscribe(x => searchCriteria.priorityFrom = x);
-    this.priorityFrom.setValidators([this.whiteSpaceValidator]);
 
     this.priorityTo.setValue(searchCriteria.priorityTo);
     this.priorityTo.valueChanges.subscribe(x => searchCriteria.priorityTo = x);
-    this.priorityTo.setValidators([this.whiteSpaceValidator]);
 
     this.startDate.setValue(searchCriteria.startDate);
     this.startDate.valueChanges.subscribe(x => searchCriteria.startDate = x);
