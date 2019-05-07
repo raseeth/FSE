@@ -12,6 +12,7 @@ import { TaskDetailComponent } from "./view-task/task-detail/task-detail.compone
 import { SearchCriteriaComponent } from "./view-task/search-criteria/search-criteria.component";
 import { TaskFormComponent } from "./task-form/task-form.component";
 import { EditTaskComponent } from "./edit-task/edit-task.component";
+import { TaskFilterPipe } from "./view-task/task-filter-pipe/task-filter.pipe";
 
 @NgModule({
     imports: [
@@ -27,7 +28,8 @@ import { EditTaskComponent } from "./edit-task/edit-task.component";
         TaskDetailComponent,
         SearchCriteriaComponent,
         TaskFormComponent,
-        EditTaskComponent
+        EditTaskComponent,
+        TaskFilterPipe
     ],
     providers: [
         TaskService

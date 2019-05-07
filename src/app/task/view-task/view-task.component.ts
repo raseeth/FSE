@@ -11,28 +11,26 @@ import { SearchCriteria } from "../models/search-criteria.model";
 
 export class ViewTaskComponent implements OnInit {
 
-  tasks$: Observable<Task[]>;
+  tasks: Task[];
 
-  private searchCriteria: SearchCriteria;
+  searchCriteria: SearchCriteria;
 
   constructor(private taskService: TaskService) {
   }
 
   ngOnInit(): void {
-    this.tasks$ = this.getTasks(new SearchCriteria());
+    this.getTasks();
   }
 
   filter(searchCriteria: SearchCriteria): void {
-    this.tasks$ = this.getTasks(searchCriteria);
+    this.searchCriteria = searchCriteria;
   }
 
   reloadTasks(): void {
-    this.getTasks(this.searchCriteria);
+    this.getTasks();
   }
 
-  private getTasks(searchCriteria: SearchCriteria): Observable<Task[]> {
-    this.searchCriteria = searchCriteria;
-
-    return this.taskService.getTasks(searchCriteria);
+  private getTasks(): void {
+    this.taskService.getTasks().subscribe(response => this.tasks = response);
   }
 }

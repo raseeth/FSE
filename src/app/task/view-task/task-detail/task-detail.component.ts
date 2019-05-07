@@ -1,6 +1,5 @@
 import { Component, Input, Output, EventEmitter } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
-import { Observable } from "rxjs";
 
 import { ROUTES } from "../../routes";
 import { Task } from "../../models/task.model";
@@ -12,9 +11,9 @@ import { TaskService } from "../../services/task.service";
 })
 
 export class TaskDetailComponent {
-    @Input() tasks$: Observable<Task[]>;
+    @Input() task: Task;
 
-    @Output() refersh = new EventEmitter<boolean>();
+    @Output() refresh = new EventEmitter<boolean>();
 
     constructor(
       private router: Router,
@@ -22,17 +21,17 @@ export class TaskDetailComponent {
       private taskService: TaskService) {
     }
 
-    hasParent(task: Task): boolean {
-      return task.parentTaskName && task.parentTaskName !== "";
+    get hasParent(): boolean {
+      return this.task.parentTaskName && this.task.parentTaskName !== "";
     }
 
-    edit(id: string): void {
-      this.router.navigate([ROUTES.UPDATETASK, id], { relativeTo: this.route.parent });
+    edit(): void {
+      this.router.navigate([ROUTES.UPDATETASK, this.task.id], { relativeTo: this.route.parent });
     }
 
-    endTask(id: string): void {
-      this.taskService.endTask(id).subscribe(response => {
-        this.refersh.emit(true);
+    endTask(): void {
+      this.taskService.endTask(this.task.id).subscribe(response => {
+        this.refresh.emit(true);
       },
       (error) => {
       });

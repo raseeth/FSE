@@ -2,6 +2,9 @@
     <search-criteria (filter)="filter($event)"></search-criteria>
 </div>
 <div class="border-top">
-  <task-detail [tasks$]="tasks$" (refersh)="reloadTasks()"></task-detail>
+  <div *ngFor="let task of tasks | taskFilter: searchCriteria">
+    {{tasks}}
+    <task-detail [task]="task" (refresh)="reloadTasks()"></task-detail>
+  </div>
 </div>
 

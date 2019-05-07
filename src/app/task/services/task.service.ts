@@ -20,7 +20,7 @@ export class TaskService {
       ];
     }
 
-    getTasks(searchCriteria: SearchCriteria): Observable<Task[]> {
+    getTasks(): Observable<Task[]> {
       return of(this.dataSource);
     }
 
