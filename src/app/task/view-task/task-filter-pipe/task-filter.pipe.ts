@@ -32,6 +32,14 @@ export class TaskFilterPipe implements PipeTransform {
       filteredTasks = filteredTasks.filter(x => x.priority <= searchCriteria.priorityTo);
     }
 
+    if (searchCriteria.startDate) {
+      filteredTasks = filteredTasks.filter(x => x.startDate >= searchCriteria.startDate);
+    }
+
+    if (searchCriteria.endDate) {
+      filteredTasks = filteredTasks.filter(x => x.startDate <= searchCriteria.endDate);
+    }
+
     return filteredTasks;
   }
 }

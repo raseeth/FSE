@@ -1,7 +1,7 @@
-import { FormControl } from "@angular/forms";
+import { FormControl, Validators } from "@angular/forms";
+import * as moment from "moment";
 
 import { SearchCriteria } from "../search-criteria.model";
-
 export class SearchCriteriaFormModel {
   public taskName = new FormControl();
   public parentTaskName = new FormControl();
@@ -27,11 +27,11 @@ export class SearchCriteriaFormModel {
 
     this.startDate.setValue(searchCriteria.startDate);
     this.startDate.valueChanges.subscribe(x => searchCriteria.startDate = x);
-    this.startDate.setValidators([this.whiteSpaceValidator]);
+    this.startDate.setValidators([this.dateValidator]);
 
     this.endDate.setValue(searchCriteria.endDate);
     this.endDate.valueChanges.subscribe(x => searchCriteria.endDate = x);
-    this.endDate.setValidators([this.whiteSpaceValidator]);
+    this.endDate.setValidators([this.dateValidator]);
   }
 
   private whiteSpaceValidator(control: FormControl): any {
@@ -41,5 +41,31 @@ export class SearchCriteriaFormModel {
 
       return isValid ? null : { whitespace: true };
     }
+  }
+
+  private dateValidator(control: FormControl): any {
+    if (control.value) {
+      const dateSplit = control.value.split("-");
+
+      if (dateSplit.length !== 3) {
+        return { invalidDate: true };
+      }
+
+      const year = dateSplit[0];
+      const month = dateSplit[1];
+      const date = dateSplit[2];
+
+      if (+year < 0 || +month < 0 || +date[2] < 0) {
+        return { invalidDate: true };
+      }
+
+      const value = moment(`${+year}-${month}-${date}`, "YYYY-MM-DD", true);
+
+      if (!value.isValid()) {
+        return { invalidDate: true };
+      }
+    }
+
+    return null;
   }
 }

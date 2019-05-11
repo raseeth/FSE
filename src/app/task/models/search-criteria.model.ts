@@ -14,7 +14,11 @@ export class SearchCriteria {
                     this.parentTaskName,
                     this.priorityFrom,
                     this.priorityTo,
-                    this.startDate,
-                    this.endDate);
+                    this.isDate(this.startDate) ? new Date(this.startDate) : undefined,
+                    this.isDate(this.endDate) ? new Date(this.endDate) : undefined);
+    }
+
+    private isDate(date: Date): boolean {
+        return date && (date.toString() !== "" || date.toString() !== "Invalid Date");
     }
 }
