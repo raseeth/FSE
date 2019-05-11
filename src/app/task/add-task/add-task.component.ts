@@ -35,8 +35,9 @@ export class AddTaskComponent implements OnInit {
     }
 
     add(): void {
+      this.formSubmitted = true;
+
       if (!this.addForm.valid) {
-        this.formSubmitted = true;
         return;
       }
 
@@ -47,6 +48,12 @@ export class AddTaskComponent implements OnInit {
         (error) => {
           console.log("Task could not be added!.");
       });
+    }
+
+    reset(): void {
+      this.taskForm.reset();
+
+      this.taskForm.controls["priority"].setValue(0);
     }
 
     private getTask(formValue: Task): Task {

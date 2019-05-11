@@ -50,8 +50,9 @@ export class EditTaskComponent implements OnInit {
     }
 
     update(): void {
+      this.formSubmitted = true;
+
       if (!this.editForm.valid) {
-        this.formSubmitted = true;
         return;
       }
 
