@@ -24,7 +24,9 @@ export class SearchCriteriaComponent implements OnInit {
   ngOnInit(): void {
     this.searchCriteriaForm.valueChanges.subscribe(() => {
       if (this.searchCriteriaForm.valid) {
-       this.filter.emit(this.searchCriteria);
+       this.filter.emit(this.searchCriteria.clone());
+       // Cloning the model to trigger change detector, so can use pure filter.
+       // Otherwise will have to use impure filter.
       }
     });
   }

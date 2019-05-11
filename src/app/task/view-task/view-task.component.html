@@ -3,7 +3,6 @@
 </div>
 <div class="border-top">
   <div *ngFor="let task of tasks | taskFilter: searchCriteria">
-    {{tasks}}
     <task-detail [task]="task" (refresh)="reloadTasks()"></task-detail>
   </div>
 </div>

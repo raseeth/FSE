@@ -7,4 +7,14 @@ export class SearchCriteria {
         public startDate?: Date,
         public endDate?: Date) {
     }
+
+    clone(): SearchCriteria {
+        return new SearchCriteria(
+                    this.taskName,
+                    this.parentTaskName,
+                    this.priorityFrom,
+                    this.priorityTo,
+                    this.startDate,
+                    this.endDate);
+    }
 }

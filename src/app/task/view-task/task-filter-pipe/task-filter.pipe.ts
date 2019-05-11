@@ -3,8 +3,7 @@ import { Task } from "../../models/task.model";
 import { SearchCriteria } from "../../models/search-criteria.model";
 
 @Pipe({
-  name: "taskFilter",
-  pure: false
+  name: "taskFilter"
 })
 
 export class TaskFilterPipe implements PipeTransform {
@@ -14,11 +13,25 @@ export class TaskFilterPipe implements PipeTransform {
       return tasks;
     }
 
-    return tasks.filter(x => {
-      (searchCriteria.taskName && x.name.toLowerCase().indexOf(
-        searchCriteria.taskName.trim().toLowerCase()) !== -1)
-      || (searchCriteria.parentTaskName && x.name.toLowerCase().indexOf(
-        searchCriteria.parentTaskName.trim().toLowerCase()) !== -1)
-    });
+    let filteredTasks = tasks;
+
+    if (searchCriteria.taskName && searchCriteria.taskName !== "") {
+      filteredTasks = tasks.filter(x => x.name.toLowerCase().includes(searchCriteria.taskName.trim().toLowerCase()));
+    }
+
+    if (searchCriteria.parentTaskName && searchCriteria.parentTaskName !== "") {
+      filteredTasks = filteredTasks.filter(x =>
+                          x.parentTaskName.toLowerCase().includes(searchCriteria.parentTaskName.trim().toLowerCase()));
+    }
+
+    if (searchCriteria.priorityFrom) {
+      filteredTasks = filteredTasks.filter(x => x.priority >= searchCriteria.priorityFrom);
+    }
+
+    if (searchCriteria.priorityTo) {
+      filteredTasks = filteredTasks.filter(x => x.priority <= searchCriteria.priorityTo);
+    }
+
+    return filteredTasks;
   }
 }
