@@ -1,8 +1,12 @@
-.table td, .table th {
-  border-top: 0px !important;
+
+nav a {
+  color: black;
+}
+nav a:hover {
+  text-decoration: none;
 }
 
-.table tbody {
-  border-top: 0px !important;
-  border-bottom: 0px !important;
+nav a.active {
+  color: #039be5;
+  font-weight: bold;
 }

@@ -24,14 +24,18 @@
           <p>{{task.endDate === null ? "" : task.endDate | date: "dd/MM/yyyy"}}</p>
         </div>
         <div class="col-lg-3 pt-0 justify-content-center align-self-center d-none d-lg-block">
-            <button class="btn btn-primary mr-lg-3" [disabled]="task.isComplete" (click)="edit()">Edit</button>
-            <button class="btn btn-primary" [disabled]="task.isComplete" (click)="endTask()">End Task</button>
+            <div class="d-flex justify-content-end">
+              <button class="btn btn-primary mr-lg-3" [disabled]="task.isComplete" (click)="edit()">Edit</button>
+              <button class="btn btn-primary" [disabled]="task.isComplete" (click)="endTask()">End Task</button>
+            </div>
         </div>
       </div>
     </div>
     <div class="col-12 col-md-4 mb-3 justify-content-center align-self-center d-block d-lg-none">
-        <button class="btn btn-primary mr-3" [disabled]="task.isComplete" (click)="edit()">Edit</button>
-        <button class="btn btn-primary" [disabled]="task.isComplete" (click)="endTask()">End Task</button>
-    </div>
+        <div class="d-flex justify-content-end">
+          <button class="btn btn-primary mr-3" [disabled]="task.isComplete" (click)="edit()">Edit</button>
+          <button class="btn btn-primary" [disabled]="task.isComplete" (click)="endTask()">End Task</button>
+        </div>
+      </div>
   </div>
 </div>

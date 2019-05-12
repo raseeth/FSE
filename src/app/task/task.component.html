@@ -1,12 +1,11 @@
 <h1>Task Manager</h1>
-<div class="row my-3">
-    <ul class="nav nav-pills">
-        <li class="nav-item">
-            <a class="nav-link" href="#" (click)="addTask($event)">Add Task</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link active" href="#" (click)="viewTask($event)">View Task</a>
-        </li>
-    </ul>
+<div class="my-3">
+    <nav>
+        <a routerLink="/task/add" class="mr-3" routerLinkActive="active">Add Task</a>
+        <a routerLink="/task/view" routerLinkActive="active">View Task</a>
+    </nav>
 </div>
-<router-outlet></router-outlet>
+
+<div class="my-3">
+    <router-outlet></router-outlet>
+</div>
