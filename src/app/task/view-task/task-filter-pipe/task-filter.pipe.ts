@@ -21,7 +21,9 @@ export class TaskFilterPipe implements PipeTransform {
 
     if (searchCriteria.parentTaskName && searchCriteria.parentTaskName !== "") {
       filteredTasks = filteredTasks.filter(x =>
-                          x.parentTaskName.toLowerCase().includes(searchCriteria.parentTaskName.trim().toLowerCase()));
+                                      x.parentTaskName
+                                      && x.parentTaskName.toLowerCase()
+                                          .includes(searchCriteria.parentTaskName.trim().toLowerCase()));
     }
 
     if (searchCriteria.priorityFrom) {
@@ -37,7 +39,7 @@ export class TaskFilterPipe implements PipeTransform {
     }
 
     if (searchCriteria.endDate) {
-      filteredTasks = filteredTasks.filter(x => x.startDate <= searchCriteria.endDate);
+      filteredTasks = filteredTasks.filter(x => x.endDate && x.endDate <= searchCriteria.endDate);
     }
 
     return filteredTasks;
