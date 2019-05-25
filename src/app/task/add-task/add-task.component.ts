@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { Router, ActivatedRoute } from "@angular/router";
-import { Observable, of } from "rxjs";
+import { Observable } from "rxjs";
 import { FormGroup, FormBuilder } from "@angular/forms";
 
 import { TaskFormModel } from "../models/form-models/task-form.model";
@@ -19,8 +18,6 @@ export class AddTaskComponent implements OnInit {
     parentTasks$: Observable<string[]>;
 
     constructor(
-      private router: Router,
-      private route: ActivatedRoute,
       private fb: FormBuilder,
       private taskService: TaskService) {
       this.addForm = this.fb.group({"task": this.fb.group(new TaskFormModel(Task.Default)) });

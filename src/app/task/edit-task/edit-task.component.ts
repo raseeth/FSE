@@ -21,7 +21,6 @@ export class EditTaskComponent implements OnInit {
 
     taskForm: FormGroup;
     parentTasks: string[];
-    taskDetail$: Observable<[Task, string[]]>;
 
     constructor(
       private router: Router,
