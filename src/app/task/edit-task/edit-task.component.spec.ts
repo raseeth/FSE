@@ -16,7 +16,7 @@ describe("Edir task component", () => {
 
     beforeEach(() => {
 
-        task = new Task("1", "Task 1", undefined, 1, new Date("2018-01-01"));
+        task = new Task(1, "Task 1", undefined, 1, new Date("2018-01-01"));
 
         dummyActivatedRoute = {
             parent: {
@@ -56,7 +56,7 @@ describe("Edir task component", () => {
     describe("update", () => {
         it("should call updateTask of task service", () => {
             component.ngOnInit();
-            component.update();
+            component.update([]);
 
             expect(taskService.updateTask).toHaveBeenCalled();
             expect(mockRouter.navigate).toHaveBeenCalledWith(["view"], Object({ relativeTo: Object({ path: "task" }) }));
@@ -65,7 +65,7 @@ describe("Edir task component", () => {
         it("should call not updateTask of task service", () => {
             component.ngOnInit();
             component.taskForm.patchValue({ name: "" });
-            component.update();
+            component.update([]);
 
             expect(taskService.updateTask).not.toHaveBeenCalled();
             expect(mockRouter.navigate).not.toHaveBeenCalled();

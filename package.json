@@ -8,7 +8,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "generate": "nswag swagger2tsclient /Input:projects/task-manager-api/swagger/task-manager.swagger.json /Output:projects/task-manager-api/proxy/taskManager-api.service.ts /ClassName:{controller}Service /WrapDtoExceptions:true /TypeScriptVersion:2.0 /Template:Angular DatetimeType:Date /GenerateClientClasses:true /GenerateClientInterfaces:true /ImportRequiredTypes:true /BaseUrlTokenName:API_BASE_URL /HttpClass:HttpClient /InjectionTokenType:InjectionToken /RxjsVersion:6.0 /UseSingletonProvider:true"
   },
   "private": true,
   "dependencies": {
@@ -49,6 +50,7 @@
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
-    "typescript": "~2.9.2"
+    "typescript": "~2.9.2",
+    "nswag": "11.18.0"
   }
 }

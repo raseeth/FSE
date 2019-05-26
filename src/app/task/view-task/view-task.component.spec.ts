@@ -14,8 +14,8 @@ describe("View task component", () => {
     beforeEach(() => {
 
         tasks = [
-            new Task("1", "Task 1", undefined, 1, new Date("2018-01-01")),
-            new Task("2", "Task 2", "Task 1", 2, new Date("2018-01-01"))
+            new Task(1, "Task 1", undefined, 1, new Date("2018-01-01")),
+            new Task(2, "Task 2", "Task 1", 2, new Date("2018-01-01"))
         ];
         taskService = jasmine.createSpyObj(TaskService.name, ["getTasks"]);
         (taskService.getTasks as jasmine.Spy).and.returnValue(of(tasks));

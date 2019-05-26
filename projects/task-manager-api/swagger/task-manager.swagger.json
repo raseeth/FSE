@@ -1,0 +1,385 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "v1",
+        "title": "TaskManager"
+    },
+    "host": "dev.taskmanager.com:501",
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "/api/ParentTasks": {
+            "get": {
+                "tags": [
+                    "ParentTasks"
+                ],
+                "summary": "Retrieves all parent tasks.",
+                "operationId": "parentTask_query",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "uniqueItems": false,
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/ParentTask"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/api/Tasks": {
+            "get": {
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "Retrieves all tasks.",
+                "operationId": "task_query",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "uniqueItems": false,
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Task"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Tasks"
+                ],
+                "operationId": "task_post",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "createTask",
+                        "in": "body",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/CreateTask"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/Task"
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/api/Tasks/{id}": {
+            "get": {
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "Gets the task for the specified task id.",
+                "operationId": "task_get",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/Task"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "Updates the task.",
+                "operationId": "task_put",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The task id to update",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "updateTask",
+                        "in": "body",
+                        "description": "Task to update",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/UpdateTask"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/Task"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/api/Tasks/{id}/end": {
+            "put": {
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "Updates the task for the specified fields.",
+                "operationId": "task_end",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/Task"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "ParentTask": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "Task": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "priority": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "parentTask": {
+                    "$ref": "#/definitions/ParentTask"
+                },
+                "startDate": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "endDate": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "isComplete": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "CreateTask": {
+            "required": [
+                "name",
+                "priority",
+                "startDate"
+            ],
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "priority": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "parentTask": {
+                    "$ref": "#/definitions/CreateParentTask"
+                },
+                "startDate": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "endDate": {
+                    "format": "date-time",
+                    "type": "string"
+                }
+            }
+        },
+        "CreateParentTask": {
+            "required": [
+                "name"
+            ],
+            "type": "object",
+            "properties": {
+                "id": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "UpdateTask": {
+            "required": [
+                "id",
+                "name",
+                "priority",
+                "startDate"
+            ],
+            "type": "object",
+            "properties": {
+                "id": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "priority": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "parentTask": {
+                    "$ref": "#/definitions/UpdateParentTask"
+                },
+                "startDate": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "endDate": {
+                    "format": "date-time",
+                    "type": "string"
+                }
+            }
+        },
+        "UpdateParentTask": {
+            "required": [
+                "name"
+            ],
+            "type": "object",
+            "properties": {
+                "id": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

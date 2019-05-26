@@ -1,7 +1,13 @@
 import { CommonModule } from "@angular/common";
+import { HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import { TypeaheadModule} from "ngx-bootstrap/typeahead";
+
+import {
+    ParentTaskService as ParentTaskApiService,
+    TaskService as TaskApiService
+} from "projects/task-manager-api/proxy/taskManager-api.service";
 
 import { TaskComponent } from "./task.component";
 import { TaskService } from "./services/task.service";
@@ -17,6 +23,7 @@ import { TaskFilterPipe } from "./view-task/task-filter-pipe/task-filter.pipe";
 @NgModule({
     imports: [
         CommonModule,
+        HttpClientModule,
         TypeaheadModule.forRoot(),
         ReactiveFormsModule,
         TaskRouterModule
@@ -32,7 +39,9 @@ import { TaskFilterPipe } from "./view-task/task-filter-pipe/task-filter.pipe";
         TaskFilterPipe
     ],
     providers: [
-        TaskService
+        TaskService,
+        TaskApiService,
+        ParentTaskApiService
     ]
 })
 

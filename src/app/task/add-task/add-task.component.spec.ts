@@ -32,7 +32,7 @@ describe("Add task component", () => {
                 name: ""
             });
 
-            component.add();
+            component.add([]);
             expect(component.formSubmitted).toBeTruthy();
             expect(taskService.post).not.toHaveBeenCalled();
         });
@@ -45,7 +45,7 @@ describe("Add task component", () => {
                 startDate: "2018-01-01"
             });
 
-            component.add();
+            component.add([]);
 
             expect(component.formSubmitted).toBeTruthy();
             expect(taskService.post).toHaveBeenCalled();

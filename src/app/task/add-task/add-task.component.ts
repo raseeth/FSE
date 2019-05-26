@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder } from "@angular/forms";
 import { TaskFormModel } from "../models/form-models/task-form.model";
 import { Task } from "../models/task.model";
 import { TaskService } from "../services/task.service";
+import { ParentTask } from "../models/parent-task.model";
 
 @Component({
     templateUrl: "./add-task.component.html"
@@ -15,7 +16,7 @@ export class AddTaskComponent implements OnInit {
     addForm: FormGroup;
     formSubmitted = false;
 
-    parentTasks$: Observable<string[]>;
+    parentTasks$: Observable<ParentTask[]>;
 
     constructor(
       private fb: FormBuilder,
@@ -31,7 +32,7 @@ export class AddTaskComponent implements OnInit {
       this.parentTasks$ = this.taskService.getParentTasks();
     }
 
-    add(): void {
+    add(parentTasks: ParentTask[]): void {
       this.formSubmitted = true;
 
       if (!this.addForm.valid) {
@@ -40,7 +41,7 @@ export class AddTaskComponent implements OnInit {
 
       const task = this.getTask(this.taskForm.value);
 
-      this.taskService.post(task).subscribe(response => {
+      this.taskService.post(task, parentTasks).subscribe(response => {
         },
         (error) => {
           console.log("Task could not be added!.");
@@ -55,7 +56,7 @@ export class AddTaskComponent implements OnInit {
 
     private getTask(formValue: Task): Task {
       return new Task(
-              "",
+              undefined,
               formValue.name,
               formValue.parentTaskName,
               +formValue.priority,

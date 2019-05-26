@@ -1,13 +1,13 @@
 import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { FormGroup, FormBuilder } from "@angular/forms";
-import { Observable, of, forkJoin } from "rxjs";
-import { flatMap, map, shareReplay } from "rxjs/operators";
+import { forkJoin } from "rxjs";
 
 import { TaskFormModel } from "../models/form-models/task-form.model";
 import { Task } from "../models/task.model";
 import { TaskService } from "../services/task.service";
 import { ROUTES } from "../routes";
+import { ParentTask } from "../models/parent-task.model";
 
 @Component({
     templateUrl: "./edit-task.component.html"
@@ -16,11 +16,11 @@ import { ROUTES } from "../routes";
 export class EditTaskComponent implements OnInit {
 
     editForm: FormGroup;
-    id: string;
+    id: number;
     formSubmitted = false;
 
     taskForm: FormGroup;
-    parentTasks: string[];
+    parentTasks: ParentTask[];
 
     constructor(
       private router: Router,
@@ -28,7 +28,7 @@ export class EditTaskComponent implements OnInit {
       private fb: FormBuilder,
       private taskService: TaskService) {
         this.route.params.subscribe(params => {
-          this.id = params["id"];
+          this.id = +params["id"];
         });
     }
 
@@ -48,7 +48,7 @@ export class EditTaskComponent implements OnInit {
       this.navigateToView();
     }
 
-    update(): void {
+    update(parentTasks: ParentTask[]): void {
       this.formSubmitted = true;
 
       if (!this.editForm.valid) {
@@ -57,7 +57,7 @@ export class EditTaskComponent implements OnInit {
 
       const task = this.getTask(this.taskForm.value);
 
-      this.taskService.updateTask(task).subscribe(response => {
+      this.taskService.updateTask(task, parentTasks).subscribe(response => {
         this.navigateToView();
       },
       (error) => {
@@ -71,7 +71,7 @@ export class EditTaskComponent implements OnInit {
 
     private getTask(formValue: Task): Task {
       return new Task(
-              "",
+              this.id,
               formValue.name,
               formValue.parentTaskName,
               +formValue.priority,

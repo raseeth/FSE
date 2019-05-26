@@ -13,8 +13,8 @@ describe("Task filter pipe", () => {
         searchCriteria = new SearchCriteria();
 
         tasks = [
-            new Task("1", "Task 1", undefined, 1, new Date("2018-01-01")),
-            new Task("2", "Task 2", "Task 1", 2, new Date("2018-04-01"), new Date("2019-04-01"))
+            new Task(1, "Task 1", undefined, 1, new Date("2018-01-01")),
+            new Task(2, "Task 2", "Task 1", 2, new Date("2018-04-01"), new Date("2019-04-01"))
         ];
 
         target = new TaskFilterPipe();

@@ -1,60 +1,157 @@
 import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
+import { map, shareReplay, take } from "rxjs/operators";
 
-import { SearchCriteria } from "../models/search-criteria.model";
+import {
+  Task as TaskApi,
+  ParentTask as ParentTaskApi,
+  TaskService as TaskApiService,
+  ParentTaskService as ParentTaskApiService,
+  ICreateTask,
+  CreateTask,
+  CreateParentTask,
+  ICreateParentTask,
+  UpdateParentTask,
+  UpdateTask,
+  IUpdateParentTask,
+  IUpdateTask
+} from "projects/task-manager-api/proxy/taskManager-api.service";
+
 import { Task } from "../models/task.model";
+import { ParentTask } from "../models/parent-task.model";
 
 @Injectable()
 export class TaskService {
 
-    // TODO: Integrate task manager api
-
-    private dataSource: Task[];
-    private id = 3;
-
-    constructor() {
-      this.dataSource = [
-        new Task("1", "task 1", "", 1, new Date("2018-01-01"), undefined, false),
-        new Task("2", "task 2", "parent task 1", 2, new Date("2019-01-01"), undefined, false),
-        new Task("3", "task 3", "parent task 2", 3, new Date("2019-04-01"), new Date("2019-04-04"), true)
-      ];
+    constructor(private taskApiService: TaskApiService, private parentTaskApiService: ParentTaskApiService) {
     }
 
     getTasks(): Observable<Task[]> {
-      return of(this.dataSource);
+      return this.taskApiService.query().pipe(map(response => this.mapToTasks(response)), shareReplay());
     }
 
-    get(id: string): Observable<Task> {
-      return of(this.dataSource.find(x => x.id === id));
+    getParentTasks(): Observable<ParentTask[]> {
+      return this.parentTaskApiService.query().pipe(map(parentTasks => this.mapToParentTasks(parentTasks)), shareReplay());
     }
 
-    post(task: Task): Observable<any> {
-      this.id = this.id + 1;
-      task.id = this.id.toString();
-      this.dataSource.push(task);
-
-      return of(undefined);
+    get(id: number): Observable<Task> {
+      return this.taskApiService.get(id).pipe(map(response => this.mapToTask(response)), shareReplay());
     }
 
-    getParentTasks(): Observable<string[]> {
-        return of(this.dataSource.map(x => x.parentTaskName));
+    post(task: Task, parentTasks: ParentTask[]): Observable<any> {
+      return this.taskApiService.post(this.getCreateTaskRequest(task, parentTasks));
     }
 
-    updateTask(task: Task): Observable<any> {
-      let taskToUpdate = this.dataSource.find(x => x.id === task.id);
-      taskToUpdate = task;
-
-      return of(undefined);
+    updateTask(task: Task, parentTasks: ParentTask[]): Observable<any> {
+      return this.taskApiService.put(task.id, this.getUpdateTaskRequest(task, parentTasks));
     }
 
-    endTask(id: string): Observable<any> {
-      const task = this.dataSource.find(x => x.id === id);
-      if (!task.endDate) {
-        task.endDate = new Date();
+    endTask(id: number): Observable<any> {
+      return this.taskApiService.end(id);
+    }
+
+    private mapToTasks(response: TaskApi[]): Task[] {
+      if (!response) {
+        return;
       }
 
-      task.isComplete = true;
+      const tasks: Task[] = [];
 
-      return of(undefined);
+      response.forEach(task => {
+        tasks.push(this.getTask(task));
+      });
+
+      return tasks;
+    }
+
+    private mapToTask(response: TaskApi): Task {
+      if (!response) {
+        return;
+      }
+
+      return this.getTask(response);
+    }
+
+    private mapToParentTasks(response: ParentTaskApi[]): ParentTask[] {
+      if (!response) {
+        return;
+      }
+
+      const parentTasks: ParentTask[] = [];
+
+      response.forEach(parentTask => {
+        parentTasks.push(new ParentTask(
+          parentTask.id,
+          parentTask.name,
+        ));
+      });
+
+      return parentTasks;
+    }
+
+    private getTask(task: TaskApi): Task {
+      return new Task(
+          task.id,
+          task.name,
+          task.parentTask ? task.parentTask.name : undefined,
+          task.priority,
+          new Date(task.startDate),
+          task.endDate ? new Date(task.endDate) : undefined,
+          task.isComplete);
+    }
+
+    private getCreateTaskRequest(task: Task, parentTasks: ParentTask[]): CreateTask {
+
+      let createParentTask: CreateParentTask;
+
+      if (task.parentTaskName) {
+        createParentTask = new CreateParentTask({
+          name: task.parentTaskName
+        } as ICreateParentTask);
+
+        if (parentTasks) {
+          const parentTask = parentTasks.find(x => x.name.toLowerCase() === task.parentTaskName.toLowerCase());
+
+          if (parentTask) {
+            createParentTask.id = parentTask.id;
+          }
+        }
+      }
+
+      return new CreateTask({
+        name: task.name,
+        parentTask: createParentTask,
+        priority: task.priority,
+        startDate: task.startDate,
+        endDate: task.endDate
+      } as ICreateTask);
+    }
+
+    private getUpdateTaskRequest(task: Task, parentTasks: ParentTask[]): UpdateTask {
+
+      let updateParentTask: UpdateParentTask;
+
+      if (task.parentTaskName) {
+        updateParentTask = new UpdateParentTask({
+          name: task.parentTaskName
+        } as IUpdateParentTask);
+
+        if (parentTasks) {
+          const parentTask = parentTasks.find(x => x.name.toLowerCase() === task.parentTaskName.toLowerCase());
+
+          if (parentTask) {
+            updateParentTask.id = parentTask.id;
+          }
+        }
+      }
+
+      return new UpdateTask({
+        id: task.id,
+        name: task.name,
+        parentTask: updateParentTask,
+        priority: task.priority,
+        startDate: task.startDate,
+        endDate: task.endDate
+      } as IUpdateTask);
     }
 }
