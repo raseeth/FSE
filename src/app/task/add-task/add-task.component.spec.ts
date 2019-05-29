@@ -3,18 +3,20 @@ import { of } from "rxjs";
 
 import { AddTaskComponent } from "./add-task.component";
 import { TaskService } from "../services/task.service";
+import { NotificationService } from "src/app/core/notification/notification.service";
 
 describe("Add task component", () => {
     let component: AddTaskComponent;
     let taskService: TaskService;
+    let notificationService: NotificationService;
 
     beforeEach(() => {
-
+        notificationService = jasmine.createSpyObj(NotificationService.name, ["success", "error"]);
         taskService = jasmine.createSpyObj(TaskService.name, ["post", "getParentTasks"]);
         (taskService.post as jasmine.Spy).and.returnValue(of({}));
         (taskService.getParentTasks as jasmine.Spy).and.returnValue(of(["parent task 1"]));
 
-        component = new AddTaskComponent(new FormBuilder(), taskService);
+        component = new AddTaskComponent(new FormBuilder(), notificationService, taskService);
     });
 
     describe("ngOnInit", () => {
@@ -47,8 +49,8 @@ describe("Add task component", () => {
 
             component.add([]);
 
-            expect(component.formSubmitted).toBeTruthy();
             expect(taskService.post).toHaveBeenCalled();
+            expect(notificationService.success).toHaveBeenCalled();
         });
     });
 

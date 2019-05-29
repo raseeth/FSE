@@ -4,10 +4,12 @@ import { of, throwError } from "rxjs";
 import { TaskDetailComponent } from "./task-detail.component";
 import { TaskService } from "../../services/task.service";
 import { Task } from "../../models/task.model";
+import { NotificationService } from "src/app/core/notification/notification.service";
 
 describe("Task detail component", () => {
     let component: TaskDetailComponent;
     let taskService: TaskService;
+    let notificationService: NotificationService;
 
     let task: Task;
     let mockRouter: any;
@@ -23,11 +25,12 @@ describe("Task detail component", () => {
 
         task = new Task(1, "Task 1", undefined, 1, new Date("2018-01-01"));
 
+        notificationService = jasmine.createSpyObj(NotificationService.name, ["success", "error"]);
         mockRouter = jasmine.createSpyObj(Router.name, ["navigate"]);
         taskService = jasmine.createSpyObj(TaskService.name, ["endTask"]);
         (taskService.endTask as jasmine.Spy).and.returnValue(of({}));
 
-        component = new TaskDetailComponent(mockRouter, dummyActivatedRoute, taskService);
+        component = new TaskDetailComponent(mockRouter, dummyActivatedRoute, notificationService, taskService);
         component.task = task;
     });
 

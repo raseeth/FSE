@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { ROUTES } from "../../routes";
 import { Task } from "../../models/task.model";
 import { TaskService } from "../../services/task.service";
+import { NotificationService } from "src/app/core/notification/notification.service";
 
 @Component({
     selector: "task-detail",
@@ -18,6 +19,7 @@ export class TaskDetailComponent {
     constructor(
       private router: Router,
       private route: ActivatedRoute,
+      private notificationService: NotificationService,
       private taskService: TaskService) {
     }
 
@@ -30,10 +32,12 @@ export class TaskDetailComponent {
     }
 
     endTask(): void {
-      this.taskService.endTask(this.task.id).subscribe(response => {
+      this.taskService.endTask(this.task.id).subscribe(() => {
+        this.notificationService.success("Task completed successfully");
         this.refresh.emit(true);
       },
       (error) => {
+        this.notificationService.error("Task could not be completed!.");
       });
     }
 }

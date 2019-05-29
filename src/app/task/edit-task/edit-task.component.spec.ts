@@ -5,11 +5,12 @@ import { of } from "rxjs";
 import { TaskService } from "../services/task.service";
 import { EditTaskComponent } from "./edit-task.component";
 import { Task } from "../models/task.model";
+import { NotificationService } from "src/app/core/notification/notification.service";
 
 describe("Edir task component", () => {
     let component: EditTaskComponent;
     let taskService: TaskService;
-
+    let notificationService: NotificationService;
     let task: Task;
     let mockRouter: any;
     let dummyActivatedRoute: any;
@@ -27,13 +28,15 @@ describe("Edir task component", () => {
             })
         };
 
+        notificationService = jasmine.createSpyObj(NotificationService.name, ["success", "error"]);
         mockRouter = jasmine.createSpyObj(Router.name, ["navigate"]);
         taskService = jasmine.createSpyObj(TaskService.name, ["get", "getParentTasks", "updateTask"]);
         (taskService.get as jasmine.Spy).and.returnValue(of(task));
         (taskService.getParentTasks as jasmine.Spy).and.returnValue(of(["parent task 1"]));
         (taskService.updateTask as jasmine.Spy).and.returnValue(of({}));
 
-        component = new EditTaskComponent(mockRouter, dummyActivatedRoute, new FormBuilder(), taskService);
+        component = new EditTaskComponent(
+            mockRouter, dummyActivatedRoute, new FormBuilder(), notificationService, taskService);
     });
 
     describe("ngOnInit", () => {

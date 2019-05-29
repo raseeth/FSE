@@ -9,6 +9,7 @@ import {
     TaskService as TaskApiService
 } from "projects/task-manager-api/proxy/taskManager-api.service";
 
+import { NotificationService } from "../core/notification/notification.service";
 import { TaskComponent } from "./task.component";
 import { TaskService } from "./services/task.service";
 import { TaskRouterModule } from "./task.-routing.module";
@@ -41,7 +42,8 @@ import { TaskFilterPipe } from "./view-task/task-filter-pipe/task-filter.pipe";
     providers: [
         TaskService,
         TaskApiService,
-        ParentTaskApiService
+        ParentTaskApiService,
+        NotificationService
     ]
 })
 

@@ -10,3 +10,11 @@ nav a.active {
   color: #039be5;
   font-weight: bold;
 }
+
+.toast-success {
+  background-color: darkcyan !important;
+}
+
+.toast-error {
+  background-color: firebrick !important;
+}

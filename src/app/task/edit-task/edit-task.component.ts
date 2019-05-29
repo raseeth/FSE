@@ -8,6 +8,7 @@ import { Task } from "../models/task.model";
 import { TaskService } from "../services/task.service";
 import { ROUTES } from "../routes";
 import { ParentTask } from "../models/parent-task.model";
+import { NotificationService } from "src/app/core/notification/notification.service";
 
 @Component({
     templateUrl: "./edit-task.component.html"
@@ -26,6 +27,7 @@ export class EditTaskComponent implements OnInit {
       private router: Router,
       private route: ActivatedRoute,
       private fb: FormBuilder,
+      private notificationService: NotificationService,
       private taskService: TaskService) {
         this.route.params.subscribe(params => {
           this.id = +params["id"];
@@ -57,11 +59,12 @@ export class EditTaskComponent implements OnInit {
 
       const task = this.getTask(this.taskForm.value);
 
-      this.taskService.updateTask(task, parentTasks).subscribe(response => {
+      this.taskService.updateTask(task, parentTasks).subscribe(() => {
+        this.notificationService.success("Task added successfully");
         this.navigateToView();
       },
       (error) => {
-          console.log("Task could not be updated!.");
+        this.notificationService.success("Task could not be updated!.");
       });
     }
 
