@@ -52,7 +52,7 @@
                 "tags": [
                     "Projects"
                 ],
-                "operationId": "projects_query",
+                "operationId": "project_query",
                 "consumes": [],
                 "produces": [
                     "application/json"
@@ -560,6 +560,47 @@
                         "schema": {
                             "$ref": "#/definitions/UpdateUser"
                         }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/UserDetail"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Users"
+                ],
+                "operationId": "user_delete",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
                     }
                 ],
                 "responses": {

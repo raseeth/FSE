@@ -34,6 +34,10 @@ export class UserService {
       return this.userApiService.put(user.id, this.getUpdateUserRequest(user));
     }
 
+    delete(id: number): Observable<any> {
+      return this.userApiService.delete(id);
+    }
+
     private mapToUsers(response: UserDetail[]): User[] {
       if (!response) {
         return;

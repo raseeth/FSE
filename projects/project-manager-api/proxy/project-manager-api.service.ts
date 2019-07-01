@@ -109,17 +109,35 @@ export class ParentTaskService implements IParentTaskService {
     }
 }
 
-export interface IProjectsService {
+export interface IProjectService {
     /**
      * @return Success
      */
     query(): Observable<ProjectDetail[]>;
+    /**
+     * @param createProject (optional) 
+     * @return Success
+     */
+    post(createProject: CreateProject | null | undefined): Observable<ProjectDetail>;
+    /**
+     * @return Success
+     */
+    get(id: number): Observable<ProjectDetail>;
+    /**
+     * @param updateProject (optional) 
+     * @return Success
+     */
+    put(id: number, updateProject: UpdateProject | null | undefined): Observable<ProjectDetail>;
+    /**
+     * @return Success
+     */
+    suspend(id: number): Observable<ProjectDetail>;
 }
 
 @Injectable({
     providedIn: 'root'
 })
-export class ProjectsService implements IProjectsService {
+export class ProjectService implements IProjectService {
     private http: HttpClient;
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
@@ -187,41 +205,6 @@ export class ProjectsService implements IProjectsService {
             }));
         }
         return _observableOf<ProjectDetail[]>(<any>null);
-    }
-}
-
-export interface IProjectService {
-    /**
-     * @param createProject (optional) 
-     * @return Success
-     */
-    post(createProject: CreateProject | null | undefined): Observable<ProjectDetail>;
-    /**
-     * @return Success
-     */
-    get(id: number): Observable<ProjectDetail>;
-    /**
-     * @param updateProject (optional) 
-     * @return Success
-     */
-    put(id: number, updateProject: UpdateProject | null | undefined): Observable<ProjectDetail>;
-    /**
-     * @return Success
-     */
-    suspend(id: number): Observable<ProjectDetail>;
-}
-
-@Injectable({
-    providedIn: 'root'
-})
-export class ProjectService implements IProjectService {
-    private http: HttpClient;
-    private baseUrl: string;
-    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
-
-    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
-        this.http = http;
-        this.baseUrl = baseUrl ? baseUrl : "http://dev.projectmanager.com:503";
     }
 
     /**
@@ -905,6 +888,10 @@ export interface IUserService {
      * @return Success
      */
     put(id: number, updateUser: UpdateUser | null | undefined): Observable<UserDetail>;
+    /**
+     * @return Success
+     */
+    delete(id: number): Observable<UserDetail>;
 }
 
 @Injectable({
@@ -1150,6 +1137,78 @@ export class UserService implements IUserService {
     }
 
     protected processPut(response: HttpResponseBase): Observable<UserDetail> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 ? UserDetail.fromJS(resultData200) : new UserDetail();
+            return _observableOf(result200);
+            }));
+        } else if (status === 400) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result400: any = null;
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData400) {
+                result400 = {};
+                for (let key in resultData400) {
+                    if (resultData400.hasOwnProperty(key))
+                        result400[key] = resultData400[key];
+                }
+            }
+            return throwException("A server error occurred.", status, _responseText, _headers, result400);
+            }));
+        } else if (status === 500) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("A server error occurred.", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<UserDetail>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    delete(id: number): Observable<UserDetail> {
+        let url_ = this.baseUrl + "/api/Users/{id}";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id)); 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDelete(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDelete(<any>response_);
+                } catch (e) {
+                    return <Observable<UserDetail>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<UserDetail>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDelete(response: HttpResponseBase): Observable<UserDetail> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 

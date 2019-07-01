@@ -5,7 +5,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { TypeaheadModule} from "ngx-bootstrap/typeahead";
 
 import {
-    ProjectsService as ProjectsServiceApiService
+    ProjectService as ProjectServiceApiService
 } from "projects/project-manager-api/proxy/project-manager-api.service";
 
 import { NotificationService } from "../core/notification/notification.service";
@@ -24,7 +24,7 @@ import { ProjectRouterModule } from "./project-routing.module";
         ProjectComponent
     ],
     providers: [
-        ProjectsServiceApiService,
+        ProjectServiceApiService,
         NotificationService
     ]
 })

@@ -82,10 +82,18 @@ describe("Task service", () => {
     });
 
     describe("update", () => {
-        it("should call put of task service", () => {
+        it("should call put of user api service", () => {
             target.update(new User(2, "First", "Last", 1234));
 
             expect(userApiService.put).toHaveBeenCalled();
+        });
+    });
+
+    describe("delete", () => {
+        it("should call delete of user api service", () => {
+            target.delete(1);
+
+            expect(userApiService.delete).toHaveBeenCalled();
         });
     });
 });
