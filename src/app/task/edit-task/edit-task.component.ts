@@ -6,7 +6,7 @@ import { forkJoin } from "rxjs";
 import { TaskFormModel } from "../models/form-models/task-form.model";
 import { Task } from "../models/task.model";
 import { TaskService } from "../services/task.service";
-import { ROUTES } from "../routes";
+import { ROUTES } from "../../routes";
 import { ParentTask } from "../models/parent-task.model";
 import { NotificationService } from "src/app/core/notification/notification.service";
 

@@ -3,6 +3,7 @@ import { AppComponent } from "./app.component";
 import { RouterTestingModule } from "@angular/router/testing";
 import { ToasterComponent } from "./core/notification/toaster-component";
 import { ToasterModule, ToasterService } from "angular2-toaster";
+import { HeaderComponent } from "./header/header.component";
 
 describe("AppComponent", () => {
   beforeEach(async(() => {
@@ -13,6 +14,7 @@ describe("AppComponent", () => {
       ],
       declarations: [
         AppComponent,
+        HeaderComponent,
         ToasterComponent
       ],
       providers: [

@@ -5,12 +5,12 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { TypeaheadModule} from "ngx-bootstrap/typeahead";
 
 import {
-    UsersService as UsersServiceApiService
+    ProjectsService as ProjectsServiceApiService
 } from "projects/project-manager-api/proxy/project-manager-api.service";
 
 import { NotificationService } from "../core/notification/notification.service";
-import { UserComponent } from "./user.component";
-import { UserRouterModule } from "./user-routing.module";
+import { ProjectComponent } from "./project.component";
+import { ProjectRouterModule } from "./project-routing.module";
 
 @NgModule({
     imports: [
@@ -18,16 +18,16 @@ import { UserRouterModule } from "./user-routing.module";
         HttpClientModule,
         TypeaheadModule.forRoot(),
         ReactiveFormsModule,
-        UserRouterModule
+        ProjectRouterModule
     ],
     declarations: [
-        UserComponent
+        ProjectComponent
     ],
     providers: [
-        UsersServiceApiService,
+        ProjectsServiceApiService,
         NotificationService
     ]
 })
 
-export class UserModule {
+export class ProjectModule {
 }

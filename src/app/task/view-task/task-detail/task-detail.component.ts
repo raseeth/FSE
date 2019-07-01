@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 
-import { ROUTES } from "../../routes";
+import { ROUTES } from "../../../routes";
 import { Task } from "../../models/task.model";
 import { TaskService } from "../../services/task.service";
 import { NotificationService } from "src/app/core/notification/notification.service";
