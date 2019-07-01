@@ -1,0 +1,19 @@
+<div *ngFor="let user of users">
+  <div class="my-3 border-bottom-dotted">
+    <div class="row">
+      <div class="col-md-7">
+        <p><span class="font-weight-bold">First Name:</span> {{user.firstName}}</p>
+        <p><span class="font-weight-bold">Last Name:</span> {{user.lastName}}</p>
+        <p><span class="font-weight-bold">Employee ID:</span> {{user.employeeId}}</p>
+      </div>
+      <div class="col-md-2">
+          <div class="mb-3">
+            <button class="btn btn-primary mr-lg-3" (click)="edit()">Edit</button>
+          </div>
+          <div>
+            <button class="btn btn-primary" (click)="delete(user.id)">Delete</button>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

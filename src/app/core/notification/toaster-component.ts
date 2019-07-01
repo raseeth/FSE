@@ -13,6 +13,6 @@ export class ToasterComponent {
             showCloseButton: true,
             tapToDismiss: false,
             animation: "fade",
-            timeout: 0
+            timeout: 3000
     });
 }

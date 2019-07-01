@@ -18,3 +18,11 @@ nav a.active {
 .toast-error {
   background-color: firebrick !important;
 }
+
+.border-top-solid {
+  border-top: 2px solid;
+}
+
+.border-bottom-dotted {
+  border-bottom-style: dotted !important;
+}

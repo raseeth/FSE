@@ -1,41 +1,39 @@
 <div class="my-3">
-  <div class="col-md-8">
-      <form [formGroup]="userForm" (ngSubmit)="addUser()">
-        <div class="form-group row">
-          <label for="firstName" class="col-md-2 col-form-label">First Name:</label>
-          <div class="col-md-5">
-            <input class="form-control" type="text" formControlName="firstName">
-            <ng-container *ngIf="formSubmitted && firstNameControl.errors">
-              <span *ngIf="firstNameControl.errors['required']" class="text-danger">Please enter first name.</span>
-              <span *ngIf="firstNameControl.errors['whitespace']" class="text-danger">Please enter valid first name.</span>
-            </ng-container>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="lastName" class="col-md-2 col-form-label">Last Name:</label>
-          <div class="col-md-5">
-            <input class="form-control" type="text" formControlName="lastName">
-            <ng-container *ngIf="formSubmitted && lastNameControl.errors">
-              <span *ngIf="lastNameControl.errors['required']" class="text-danger">Please enter last name.</span>
-              <span *ngIf="firstNameControl.errors['whitespace']" class="text-danger">Please enter valid last name.</span>
-            </ng-container>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="employeeId" class="col-md-2 col-form-label">Employee ID:</label>
-          <div class="col-md-5">
-            <input class="form-control" type="number" formControlName="employeeId">
-            <ng-container *ngIf="formSubmitted && employeeIdControl.errors">
-              <span *ngIf="employeeIdControl.errors['required']" class="text-danger">Please enter employee id.</span>
-            </ng-container>
-          </div>
-        </div>
-        <div class="form-group col-md-7 flex justify-content-end my-5 row pr-0">
-          <div>
-            <button class="btn btn-primary mr-3">Add</button>
-            <button class="btn btn-secondary" type="button" (click)="reset()">Reset</button>
-          </div>
-        </div>
-      </form>
-  </div>
+  <form [formGroup]="userForm" (ngSubmit)="addUser()">
+    <div class="form-group row">
+      <label for="firstName" class="col-md-2 col-form-label">First Name:</label>
+      <div class="col-md-5">
+        <input class="form-control" type="text" formControlName="firstName">
+        <ng-container *ngIf="formSubmitted && firstNameControl.errors">
+          <span *ngIf="firstNameControl.errors['required']" class="text-danger">Please enter first name.</span>
+          <span *ngIf="firstNameControl.errors['whitespace']" class="text-danger">Please enter valid first name.</span>
+        </ng-container>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="lastName" class="col-md-2 col-form-label">Last Name:</label>
+      <div class="col-md-5">
+        <input class="form-control" type="text" formControlName="lastName">
+        <ng-container *ngIf="formSubmitted && lastNameControl.errors">
+          <span *ngIf="lastNameControl.errors['required']" class="text-danger">Please enter last name.</span>
+          <span *ngIf="firstNameControl.errors['whitespace']" class="text-danger">Please enter valid last name.</span>
+        </ng-container>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="employeeId" class="col-md-2 col-form-label">Employee ID:</label>
+      <div class="col-md-5">
+        <input class="form-control" type="number" formControlName="employeeId">
+        <ng-container *ngIf="formSubmitted && employeeIdControl.errors">
+          <span *ngIf="employeeIdControl.errors['required']" class="text-danger">Please enter employee id.</span>
+        </ng-container>
+      </div>
+    </div>
+    <div class="form-group col-md-7 flex justify-content-end my-5 row pr-0">
+      <div>
+        <button class="btn btn-primary mr-3">Add</button>
+        <button class="btn btn-secondary" type="button" (click)="reset()">Reset</button>
+      </div>
+    </div>
+  </form>
 </div>
