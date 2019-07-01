@@ -1,12 +1,12 @@
 import { of } from "rxjs";
 
 import {
-    Task as TaskApi,
+    TaskDetail,
     ParentTask as ParentTaskApi,
     TaskService as TaskApiService,
     ParentTaskService as ParentTaskApiService,
-    ITask,
-} from "projects/task-manager-api/proxy/taskManager-api.service";
+    ITaskDetail,
+} from "projects/project-manager-api/proxy/project-manager-api.service";
 
 import { Task } from "../models/task.model";
 import { TaskService } from "./task.service";
@@ -16,18 +16,18 @@ describe("Task service", () => {
 
     let taskApiService: TaskApiService;
     let parentTaskApiService: ParentTaskApiService;
-    let taskApi: TaskApi;
-    let parentTaskApi: TaskApi;
+    let taskApi: TaskDetail;
+    let parentTaskApi: ParentTaskApi;
 
     beforeEach(() => {
-        taskApi = new TaskApi({
+        taskApi = new TaskDetail({
             id: 1,
             name: "Task 1",
             priority: 1,
             startDate: new Date("2018-01-01"),
             endDate: new Date("2019-01-01"),
             isComplete: true
-        } as ITask);
+        } as ITaskDetail);
 
         parentTaskApi = new ParentTaskApi({
             id: 1,

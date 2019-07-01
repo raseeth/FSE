@@ -7,12 +7,12 @@ import { TypeaheadModule} from "ngx-bootstrap/typeahead";
 import {
     ParentTaskService as ParentTaskApiService,
     TaskService as TaskApiService
-} from "projects/task-manager-api/proxy/taskManager-api.service";
+} from "projects/project-manager-api/proxy/project-manager-api.service";
 
 import { NotificationService } from "../core/notification/notification.service";
 import { TaskComponent } from "./task.component";
 import { TaskService } from "./services/task.service";
-import { TaskRouterModule } from "./task.-routing.module";
+import { TaskRouterModule } from "./task-routing.module";
 import { ViewTaskComponent } from "./view-task/view-task.component";
 import { AddTaskComponent } from "./add-task/add-task.component";
 import { TaskDetailComponent } from "./view-task/task-detail/task-detail.component";

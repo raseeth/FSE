@@ -1,0 +1,923 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "v1",
+        "title": "ProjectManager"
+    },
+    "host": "dev.projectmanager.com:503",
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "/api/ParentTasks": {
+            "get": {
+                "tags": [
+                    "ParentTasks"
+                ],
+                "summary": "Retrieves all parent tasks.",
+                "operationId": "parentTask_query",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "uniqueItems": false,
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/ParentTask"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/api/Projects": {
+            "get": {
+                "tags": [
+                    "Projects"
+                ],
+                "operationId": "projects_query",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "uniqueItems": false,
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/ProjectDetail"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Projects"
+                ],
+                "operationId": "project_post",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "createProject",
+                        "in": "body",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/CreateProject"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/ProjectDetail"
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/api/Projects/{id}": {
+            "get": {
+                "tags": [
+                    "Projects"
+                ],
+                "operationId": "project_get",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/ProjectDetail"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Projects"
+                ],
+                "operationId": "project_put",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "updateProject",
+                        "in": "body",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/UpdateProject"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/ProjectDetail"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/api/Projects/{id}/suspend": {
+            "put": {
+                "tags": [
+                    "Projects"
+                ],
+                "operationId": "project_suspend",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/ProjectDetail"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/api/Tasks": {
+            "get": {
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "Retrieves all tasks.",
+                "operationId": "task_query",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "uniqueItems": false,
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/TaskDetail"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Tasks"
+                ],
+                "operationId": "task_post",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "createTask",
+                        "in": "body",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/CreateTask"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "format": "int32",
+                            "type": "integer"
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/api/Tasks/{id}": {
+            "get": {
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "Gets the task for the specified task id.",
+                "operationId": "task_get",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/TaskDetail"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "Updates the task.",
+                "operationId": "task_put",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The task id to update",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "updateTask",
+                        "in": "body",
+                        "description": "Task to update",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/UpdateTask"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/api/Tasks/{id}/end": {
+            "put": {
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "Updates the task for the specified fields.",
+                "operationId": "task_end",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/api/Users": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "operationId": "users_query",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "uniqueItems": false,
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/UserDetail"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "operationId": "user_post",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "createUser",
+                        "in": "body",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/CreateUser"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/UserDetail"
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/api/Users/{id}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "operationId": "user_get",
+                "consumes": [],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/UserDetail"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Users"
+                ],
+                "operationId": "user_put",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "updateUser",
+                        "in": "body",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/UpdateUser"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/UserDetail"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "ParentTask": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "ProjectDetail": {
+            "required": [
+                "id",
+                "name",
+                "priority",
+                "startDate",
+                "endDate",
+                "numberOfTasks",
+                "userDetail"
+            ],
+            "type": "object",
+            "properties": {
+                "id": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "priority": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "startDate": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "endDate": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "isComplete": {
+                    "default": false,
+                    "type": "boolean"
+                },
+                "numberOfTasks": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "userDetail": {
+                    "$ref": "#/definitions/UserDetail"
+                }
+            }
+        },
+        "UserDetail": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "firstName": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "employeeId": {
+                    "format": "int32",
+                    "type": "integer"
+                }
+            }
+        },
+        "CreateProject": {
+            "required": [
+                "name",
+                "priority",
+                "userId"
+            ],
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "priority": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "startDate": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "endDate": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "userId": {
+                    "format": "int32",
+                    "type": "integer"
+                }
+            }
+        },
+        "UpdateProject": {
+            "required": [
+                "id",
+                "name",
+                "priority",
+                "userId"
+            ],
+            "type": "object",
+            "properties": {
+                "id": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "priority": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "startDate": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "endDate": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "userId": {
+                    "format": "int32",
+                    "type": "integer"
+                }
+            }
+        },
+        "TaskDetail": {
+            "required": [
+                "name",
+                "priority",
+                "startDate",
+                "endDate"
+            ],
+            "type": "object",
+            "properties": {
+                "id": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "parentTask": {
+                    "$ref": "#/definitions/ParentTask"
+                },
+                "isComplete": {
+                    "type": "boolean"
+                },
+                "project": {
+                    "$ref": "#/definitions/ProjectDetail"
+                },
+                "user": {
+                    "$ref": "#/definitions/UserDetail"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "priority": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "startDate": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "endDate": {
+                    "format": "date-time",
+                    "type": "string"
+                }
+            }
+        },
+        "CreateTask": {
+            "required": [
+                "projectId",
+                "userId",
+                "name",
+                "priority",
+                "startDate",
+                "endDate"
+            ],
+            "type": "object",
+            "properties": {
+                "parentTask": {
+                    "$ref": "#/definitions/CreateParentTask"
+                },
+                "projectId": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "userId": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "priority": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "startDate": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "endDate": {
+                    "format": "date-time",
+                    "type": "string"
+                }
+            }
+        },
+        "CreateParentTask": {
+            "required": [
+                "name"
+            ],
+            "type": "object",
+            "properties": {
+                "id": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "UpdateTask": {
+            "required": [
+                "id",
+                "userId",
+                "name",
+                "priority",
+                "startDate",
+                "endDate"
+            ],
+            "type": "object",
+            "properties": {
+                "id": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "parentTask": {
+                    "$ref": "#/definitions/UpdateParentTask"
+                },
+                "userId": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "priority": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "startDate": {
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "endDate": {
+                    "format": "date-time",
+                    "type": "string"
+                }
+            }
+        },
+        "UpdateParentTask": {
+            "required": [
+                "name"
+            ],
+            "type": "object",
+            "properties": {
+                "id": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "CreateUser": {
+            "required": [
+                "firstName",
+                "lastName",
+                "employeeId"
+            ],
+            "type": "object",
+            "properties": {
+                "firstName": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "employeeId": {
+                    "format": "int32",
+                    "type": "integer"
+                }
+            }
+        },
+        "UpdateUser": {
+            "required": [
+                "id",
+                "firstName",
+                "lastName",
+                "employeeId"
+            ],
+            "type": "object",
+            "properties": {
+                "id": {
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "firstName": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "employeeId": {
+                    "format": "int32",
+                    "type": "integer"
+                }
+            }
+        }
+    }
+}

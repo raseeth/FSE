@@ -10,7 +10,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "generate": "nswag swagger2tsclient /Input:projects/task-manager-api/swagger/task-manager.swagger.json /Output:projects/task-manager-api/proxy/taskManager-api.service.ts /ClassName:{controller}Service /WrapDtoExceptions:true /TypeScriptVersion:2.0 /Template:Angular DatetimeType:Date /GenerateClientClasses:true /GenerateClientInterfaces:true /ImportRequiredTypes:true /BaseUrlTokenName:API_BASE_URL /HttpClass:HttpClient /InjectionTokenType:InjectionToken /RxjsVersion:6.0 /UseSingletonProvider:true"
+    "generate": "nswag swagger2tsclient /Input:projects/project-manager-api/swagger/project-manager.swagger.json /Output:projects/project-manager-api/proxy/project-manager-api.service.ts /ClassName:{controller}Service /WrapDtoExceptions:true /TypeScriptVersion:2.0 /Template:Angular DatetimeType:Date /GenerateClientClasses:true /GenerateClientInterfaces:true /ImportRequiredTypes:true /BaseUrlTokenName:API_BASE_URL /HttpClass:HttpClient /InjectionTokenType:InjectionToken /RxjsVersion:6.0 /UseSingletonProvider:true"
   },
   "private": true,
   "dependencies": {

@@ -3,7 +3,7 @@ import { Observable, of } from "rxjs";
 import { map, shareReplay, take } from "rxjs/operators";
 
 import {
-  Task as TaskApi,
+  TaskDetail,
   ParentTask as ParentTaskApi,
   TaskService as TaskApiService,
   ParentTaskService as ParentTaskApiService,
@@ -15,7 +15,7 @@ import {
   UpdateTask,
   IUpdateParentTask,
   IUpdateTask
-} from "projects/task-manager-api/proxy/taskManager-api.service";
+} from "projects/project-manager-api/proxy/project-manager-api.service";
 
 import { Task } from "../models/task.model";
 import { ParentTask } from "../models/parent-task.model";
@@ -50,7 +50,7 @@ export class TaskService {
       return this.taskApiService.end(id);
     }
 
-    private mapToTasks(response: TaskApi[]): Task[] {
+    private mapToTasks(response: TaskDetail[]): Task[] {
       if (!response) {
         return;
       }
@@ -64,7 +64,7 @@ export class TaskService {
       return tasks;
     }
 
-    private mapToTask(response: TaskApi): Task {
+    private mapToTask(response: TaskDetail): Task {
       if (!response) {
         return;
       }
@@ -89,7 +89,7 @@ export class TaskService {
       return parentTasks;
     }
 
-    private getTask(task: TaskApi): Task {
+    private getTask(task: TaskDetail): Task {
       return new Task(
           task.id,
           task.name,
