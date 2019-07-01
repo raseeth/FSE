@@ -42,6 +42,10 @@ export class AddUserComponent {
     addUser(): void {
       this.formSubmitted = true;
 
+      if (!this.userForm.valid) {
+        return;
+      }
+
       this.userService.post(this.userForm.value).subscribe(() => {
           this.notificationService.success("User added successfully");
           this.reloadUser.emit();

@@ -13,7 +13,7 @@ const taskRoutes: Routes = [
             { path: "", redirectTo: ROUTES.VIEWTASK, pathMatch: "full" },
             { path: ROUTES.VIEWTASK, component: ViewTaskComponent },
             { path: ROUTES.ADD, component: AddTaskComponent },
-            { path: ROUTES.UPDATETASK + "/:id", component: EditTaskComponent }
+            { path: ROUTES.UPDATE + "/:id", component: EditTaskComponent }
         ],
     }
 ];

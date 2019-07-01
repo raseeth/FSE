@@ -84,7 +84,7 @@ describe("Task service", () => {
 
     describe("update", () => {
         it("should call put of user api service", () => {
-            target.update(new User(2, "First", "Last", 1234));
+            target.update(2, new User(2, "First", "Last", 1234));
 
             expect(userApiService.put).toHaveBeenCalled();
         });

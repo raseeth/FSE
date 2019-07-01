@@ -60,7 +60,7 @@ export class EditTaskComponent implements OnInit {
       const task = this.getTask(this.taskForm.value);
 
       this.taskService.updateTask(task, parentTasks).subscribe(() => {
-        this.notificationService.success("Task added successfully");
+        this.notificationService.success("Task updated successfully");
         this.navigateToView();
       },
       (error) => {

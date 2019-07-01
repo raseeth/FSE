@@ -30,8 +30,8 @@ export class UserService {
       return this.userApiService.post(this.getCreateUserRequest(user));
     }
 
-    update(user: User): Observable<any> {
-      return this.userApiService.put(user.id, this.getUpdateUserRequest(user));
+    update(id: number, user: User): Observable<any> {
+      return this.userApiService.put(id, this.getUpdateUserRequest(user));
     }
 
     delete(id: number): Observable<any> {

@@ -15,7 +15,7 @@ export class UserComponent implements OnInit {
         private userService: UserService,
         private notificationService: NotificationService) {
     }
-  
+
     ngOnInit(): void {
       this.getUsers();
     }
@@ -23,17 +23,17 @@ export class UserComponent implements OnInit {
     delete(id: number): void {
         this.userService.delete(id).subscribe(() => {
             this.reloadUser();
-            this.notificationService.success("User deleted successfully.")
+            this.notificationService.success("User deleted successfully.");
         },
         (error) => {
-            this.notificationService.error("Could not delete the user.")
+            this.notificationService.error("Could not delete the user.");
         });
     }
 
     reloadUser(): void {
         this.getUsers();
     }
-  
+
     private getUsers(): void {
       this.userService.getUsers().subscribe(users => this.users = users);
     }

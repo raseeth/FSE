@@ -28,7 +28,7 @@ export class TaskDetailComponent {
     }
 
     edit(): void {
-      this.router.navigate([ROUTES.UPDATETASK, this.task.id], { relativeTo: this.route.parent });
+      this.router.navigate([ROUTES.UPDATE, this.task.id], { relativeTo: this.route.parent });
     }
 
     endTask(): void {

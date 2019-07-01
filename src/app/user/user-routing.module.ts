@@ -3,12 +3,14 @@ import { RouterModule, Routes } from "@angular/router";
 
 import { UserComponent } from "./user.component";
 import { ROUTES } from "../routes";
+import { EditUserComponent } from "./edit/edit-user.component";
+import { UserLandingComponent } from "./user-landing.component";
 
 const userRoutes: Routes = [
-    { path: ROUTES.USER, component: UserComponent,
+    { path: ROUTES.USER, component: UserLandingComponent,
         children: [
-            { path: "", redirectTo: ROUTES.ADD, pathMatch: "full" },
-            { path: ROUTES.ADD, component: UserComponent },
+            { path: "", component: UserComponent },
+            { path: ROUTES.UPDATE + "/:id", component: EditUserComponent }
         ],
     }
 ];

@@ -14,6 +14,8 @@ import { UserRouterModule } from "./user-routing.module";
 import { AddUserComponent } from "./add/add-user.component";
 import { UserService } from "./services/user.service";
 import { ViewUserComponent } from "./view/view-user.component";
+import { EditUserComponent } from "./edit/edit-user.component";
+import { UserLandingComponent } from "./user-landing.component";
 
 @NgModule({
     imports: [
@@ -26,7 +28,9 @@ import { ViewUserComponent } from "./view/view-user.component";
     declarations: [
         UserComponent,
         AddUserComponent,
-        ViewUserComponent
+        ViewUserComponent,
+        UserLandingComponent,
+        EditUserComponent
     ],
     providers: [
         UserServiceApiService,
