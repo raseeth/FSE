@@ -438,7 +438,7 @@
                 "tags": [
                     "Users"
                 ],
-                "operationId": "users_query",
+                "operationId": "user_query",
                 "consumes": [],
                 "produces": [
                     "application/json"

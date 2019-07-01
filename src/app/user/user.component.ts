@@ -5,4 +5,7 @@ import { Component } from "@angular/core";
 })
 
 export class UserComponent {
+    reloadUser(): void {
+        console.log("Load user.");
+    }
 }

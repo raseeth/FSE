@@ -1,7 +1,7 @@
 import { FormControl, Validators } from "@angular/forms";
 
 import { Task } from "../task.model";
-import { CustomValidators } from "./custom-validators";
+import { CustomValidators } from "../../../validators/custom-validators";
 
 export class TaskFormModel {
     public name = new FormControl();

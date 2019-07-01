@@ -886,17 +886,31 @@ export class TaskService implements ITaskService {
     }
 }
 
-export interface IUsersService {
+export interface IUserService {
     /**
      * @return Success
      */
     query(): Observable<UserDetail[]>;
+    /**
+     * @param createUser (optional) 
+     * @return Success
+     */
+    post(createUser: CreateUser | null | undefined): Observable<UserDetail>;
+    /**
+     * @return Success
+     */
+    get(id: number): Observable<UserDetail>;
+    /**
+     * @param updateUser (optional) 
+     * @return Success
+     */
+    put(id: number, updateUser: UpdateUser | null | undefined): Observable<UserDetail>;
 }
 
 @Injectable({
     providedIn: 'root'
 })
-export class UsersService implements IUsersService {
+export class UserService implements IUserService {
     private http: HttpClient;
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
@@ -964,37 +978,6 @@ export class UsersService implements IUsersService {
             }));
         }
         return _observableOf<UserDetail[]>(<any>null);
-    }
-}
-
-export interface IUserService {
-    /**
-     * @param createUser (optional) 
-     * @return Success
-     */
-    post(createUser: CreateUser | null | undefined): Observable<UserDetail>;
-    /**
-     * @return Success
-     */
-    get(id: number): Observable<UserDetail>;
-    /**
-     * @param updateUser (optional) 
-     * @return Success
-     */
-    put(id: number, updateUser: UpdateUser | null | undefined): Observable<UserDetail>;
-}
-
-@Injectable({
-    providedIn: 'root'
-})
-export class UserService implements IUserService {
-    private http: HttpClient;
-    private baseUrl: string;
-    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
-
-    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
-        this.http = http;
-        this.baseUrl = baseUrl ? baseUrl : "http://dev.projectmanager.com:503";
     }
 
     /**

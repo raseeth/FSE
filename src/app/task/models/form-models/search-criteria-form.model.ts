@@ -1,7 +1,7 @@
 import { FormControl } from "@angular/forms";
 
 import { SearchCriteria } from "../search-criteria.model";
-import { CustomValidators } from "./custom-validators";
+import { CustomValidators } from "../../../validators/custom-validators";
 
 export class SearchCriteriaFormModel {
   public taskName = new FormControl();
