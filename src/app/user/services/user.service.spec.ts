@@ -25,11 +25,12 @@ describe("Task service", () => {
             isComplete: true
         } as IUserDetail);
 
-        userApiService = jasmine.createSpyObj(UserApiService.name, ["get", "query", "post", "put"]);
+        userApiService = jasmine.createSpyObj(UserApiService.name, ["get", "query", "post", "put", "delete"]);
         (userApiService.get as jasmine.Spy).and.returnValue(of(userDetail));
         (userApiService.query as jasmine.Spy).and.returnValue(of([userDetail]));
         (userApiService.post as jasmine.Spy).and.returnValue(of({}));
         (userApiService.put as jasmine.Spy).and.returnValue(of({}));
+        (userApiService.delete as jasmine.Spy).and.returnValue(of({}));
 
         target = new UserService(userApiService);
     });
