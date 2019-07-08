@@ -8,7 +8,6 @@ const projectRoutes: Routes = [
     { path: ROUTES.PROJECT, component: ProjectComponent,
         children: [
             { path: "", redirectTo: ROUTES.ADD, pathMatch: "full" },
-            { path: ROUTES.ADD, component: ProjectComponent },
         ],
     }
 ];

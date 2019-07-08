@@ -9,7 +9,7 @@ import {
 import { User } from "../models/user.model";
 import { UserService } from "./user.service";
 
-describe("Task service", () => {
+describe("User service", () => {
     let target: UserService;
 
     let userApiService: UserApiService;

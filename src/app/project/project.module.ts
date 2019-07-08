@@ -11,6 +11,8 @@ import {
 import { NotificationService } from "../core/notification/notification.service";
 import { ProjectComponent } from "./project.component";
 import { ProjectRouterModule } from "./project-routing.module";
+import { ViewProjectComponent } from "./view/view-project.component";
+import { ProjectService } from "./services/project.service";
 
 @NgModule({
     imports: [
@@ -21,11 +23,13 @@ import { ProjectRouterModule } from "./project-routing.module";
         ProjectRouterModule
     ],
     declarations: [
-        ProjectComponent
+        ProjectComponent,
+        ViewProjectComponent
     ],
     providers: [
         ProjectServiceApiService,
-        NotificationService
+        NotificationService,
+        ProjectService
     ]
 })
 

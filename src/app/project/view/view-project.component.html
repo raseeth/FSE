@@ -1,0 +1,43 @@
+<div *ngFor="let project of projects">
+  <div class="my-3 border-bottom-dotted">
+    <div class="row">
+      <div class="col-md-7">
+        <div class="row">
+          <div class="col-12">
+            <p><span class="font-weight-bold">Project:</span> {{project.name}}</p>          
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <p><span class="font-weight-bold">No of Tasks:</span> {{project.numberOfTasks}}</p>
+          </div>
+          <div class="col-6">
+            <p><span class="font-weight-bold">Completed:</span> 
+              <span *ngIf="project.isComplete">Yes</span>
+              <span *ngIf="!project.isComplete">No</span>
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <p><span class="font-weight-bold">Start Date:</span> {{project.startDate | date: "dd/MM/yyyy"}}</p>
+          </div>
+          <div class="col-6">
+            <p><span class="font-weight-bold">EndDate:</span> {{project.endDate | date: "dd/MM/yyyy"}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-2">
+          <p><span class="font-weight-bold">Priority:</span> {{project.priority}}</p>
+      </div>
+      <div class="col-md-2">
+          <div class="mb-3">
+            <button class="btn btn-primary mr-lg-3" (click)="edit(project.id)">Update</button>
+          </div>
+          <div>
+            <button class="btn btn-primary" [disabled]="project.isComplete" (click)="suspend(project.id)">Suspend</button>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

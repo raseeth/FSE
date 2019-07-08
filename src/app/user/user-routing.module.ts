@@ -10,7 +10,6 @@ const userRoutes: Routes = [
     { path: ROUTES.USER, component: UserLandingComponent,
         children: [
             { path: "", component: UserComponent },
-            { path: ROUTES.UPDATE + "/:id", component: EditUserComponent }
         ],
     }
 ];

@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, OnInit, APP_INITIALIZER } from "@angular/core";
+import { Component, Output, EventEmitter, OnInit, Input } from "@angular/core";
 import { FormGroup, AbstractControl, Validators, FormBuilder, FormControl } from "@angular/forms";
 
 import { NotificationService } from "src/app/core/notification/notification.service";
@@ -9,11 +9,13 @@ import { ROUTES } from "src/app/routes";
 import { User } from "../models/user.model";
 
 @Component({
-    templateUrl: "./edit-user.component.html"
+  selector: "edit-user",
+  templateUrl: "./edit-user.component.html"
 })
 
 export class EditUserComponent implements OnInit {
-    @Output() reloadUser = new EventEmitter();
+  @Input() userToEdit: User;
+  @Output() reloadUser = new EventEmitter();
 
     id: number;
     user: User;
@@ -26,10 +28,6 @@ export class EditUserComponent implements OnInit {
       private fb: FormBuilder,
       private userService: UserService,
       private notificationService: NotificationService) {
-        this.route.params.subscribe(params => {
-          this.id = +params["id"];
-        });
-
         this.userForm = this.fb.group({
           "firstName": ["", [Validators.required, CustomValidators.whiteSpace]],
           "lastName": ["", [Validators.required, CustomValidators.whiteSpace]],
@@ -50,10 +48,9 @@ export class EditUserComponent implements OnInit {
     }
 
     ngOnInit(): void {
-      this.userService.get(this.id).subscribe(user => {
-        this.user = user;
+      this.id = this.userToEdit.id;
+        this.user = this.userToEdit;
         this.initializeForm();
-      });
     }
 
     editUser(): void {
@@ -65,15 +62,15 @@ export class EditUserComponent implements OnInit {
 
       this.userService.update(this.id, this.user).subscribe(() => {
           this.notificationService.success("User updated successfully");
-          this.navigateToView();
+          this.reloadUser.emit();
         },
         () => {
           this.notificationService.error("User could not be updated!.");
       });
     }
 
-    cancel(): void {
-      this.navigateToView();
+    reset(): void {
+      this.userForm.reset();
     }
 
     private initializeForm(): void {
@@ -84,9 +81,5 @@ export class EditUserComponent implements OnInit {
       this.firstNameControl.valueChanges.subscribe(x => this.user.firstName = x);
       this.lastNameControl.valueChanges.subscribe(x => this.user.lastName = x);
       this.employeeIdControl.valueChanges.subscribe(x => this.user.employeeId = x);
-    }
-
-    private navigateToView(): void {
-      this.router.navigate([ROUTES.USER]);
     }
 }

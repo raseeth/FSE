@@ -5,4 +5,12 @@ export class User {
         public lastName: string,
         public employeeId: number) {
     }
+
+    clone(): User {
+        return new User(
+            this.id,
+            this.firstName,
+            this.lastName,
+            this.employeeId);
+    }
 }

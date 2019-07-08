@@ -12,6 +12,7 @@ export class ViewUserComponent {
   @Input() users: User[];
 
   @Output() deleteUser = new EventEmitter<number>();
+  @Output() editUser = new EventEmitter<User>();
 
   constructor(
     private router: Router,
@@ -22,7 +23,8 @@ export class ViewUserComponent {
     this.deleteUser.emit(id);
   }
 
-  edit(id: number): void {
-    this.router.navigate([ROUTES.UPDATE, id], { relativeTo: this.route });
+  edit(user: User): void {
+    this.editUser.emit(user.clone());
+    // this.router.navigate([ROUTES.UPDATE, id], { relativeTo: this.route });
   }
 }

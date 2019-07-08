@@ -10,6 +10,9 @@ import { NotificationService } from "../core/notification/notification.service";
 export class UserComponent implements OnInit {
 
     users: User[];
+    userToEdit: User;
+    showAdd = true;
+    showEdit = false;
 
     constructor(
         private userService: UserService,
@@ -31,7 +34,16 @@ export class UserComponent implements OnInit {
     }
 
     reloadUser(): void {
+        this.showAdd = true;
+        this.showEdit = false;
+        this.userToEdit = undefined;
         this.getUsers();
+    }
+
+    editUser(user: User): void {
+        this.showAdd = false;
+        this.showEdit = true;
+        this.userToEdit = user;
     }
 
     private getUsers(): void {

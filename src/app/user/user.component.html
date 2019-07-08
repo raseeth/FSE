@@ -1,7 +1,8 @@
 <h2>User</h2>
 <div class="col-md-8">
-    <add-user (reloadUser)="reloadUser()"></add-user>
+    <add-user *ngIf="showAdd" (reloadUser)="reloadUser()"></add-user>
+    <edit-user *ngIf="showEdit" (reloadUser)="reloadUser()" [userToEdit]="userToEdit"></edit-user>
     <div class="mt-3 border-top-solid">
-        <view-user [users]="users" (deleteUser)="delete($event)"></view-user>
+        <view-user [users]="users" (deleteUser)="delete($event)" (editUser)="editUser($event)" (reloadUser)="reloadUser()"></view-user>
     </div>
 </div>
