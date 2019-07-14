@@ -26,3 +26,8 @@ nav a.active {
 .border-bottom-dotted {
   border-bottom-style: dotted !important;
 }
+
+.btn-group>.btn {
+  border-radius: 0 !important;
+  margin-right: 1rem !important;
+}

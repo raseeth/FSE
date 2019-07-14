@@ -1,7 +1,7 @@
 <div class="my-3">
   <form [formGroup]="userForm" (ngSubmit)="addUser()">
     <div class="form-group row">
-      <label for="firstName" class="col-md-2 col-form-label">First Name:</label>
+      <label for="firstName" class="col-md-3 col-lg-2 col-form-label">First Name:</label>
       <div class="col-md-5">
         <input class="form-control" type="text" formControlName="firstName">
         <ng-container *ngIf="formSubmitted && firstNameControl.errors">
@@ -11,7 +11,7 @@
       </div>
     </div>
     <div class="form-group row">
-      <label for="lastName" class="col-md-2 col-form-label">Last Name:</label>
+      <label for="lastName" class="col-md-3 col-lg-2 col-form-label">Last Name:</label>
       <div class="col-md-5">
         <input class="form-control" type="text" formControlName="lastName">
         <ng-container *ngIf="formSubmitted && lastNameControl.errors">
@@ -21,7 +21,7 @@
       </div>
     </div>
     <div class="form-group row">
-      <label for="employeeId" class="col-md-2 col-form-label">Employee ID:</label>
+      <label for="employeeId" class="col-md-3 col-lg-2 col-form-label">Employee ID:</label>
       <div class="col-md-5">
         <input class="form-control" type="number" formControlName="employeeId">
         <ng-container *ngIf="formSubmitted && employeeIdControl.errors">
