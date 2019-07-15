@@ -644,8 +644,6 @@
                 "id",
                 "name",
                 "priority",
-                "startDate",
-                "endDate",
                 "numberOfTasks",
                 "userDetail"
             ],

@@ -1292,8 +1292,8 @@ export class ProjectDetail implements IProjectDetail {
     id: number;
     name: string;
     priority: number;
-    startDate: Date;
-    endDate: Date;
+    startDate?: Date | undefined;
+    endDate?: Date | undefined;
     isComplete?: boolean | undefined;
     numberOfTasks: number;
     userDetail: UserDetail;
@@ -1349,8 +1349,8 @@ export interface IProjectDetail {
     id: number;
     name: string;
     priority: number;
-    startDate: Date;
-    endDate: Date;
+    startDate?: Date | undefined;
+    endDate?: Date | undefined;
     isComplete?: boolean | undefined;
     numberOfTasks: number;
     userDetail: UserDetail;

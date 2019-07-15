@@ -38,10 +38,10 @@
         </div>
         <div class="row">
           <div class="col-6">
-            <p><span class="font-weight-bold">Start Date:</span> {{project.startDate | date: "dd/MM/yyyy"}}</p>
+            <p><span class="font-weight-bold">Start Date:</span><span *ngIf="project.startDate">{{project.startDate | date: "dd/MM/yyyy"}}</span></p>
           </div>
           <div class="col-6">
-            <p><span class="font-weight-bold">EndDate:</span> {{project.endDate | date: "dd/MM/yyyy"}}</p>
+            <p><span class="font-weight-bold">EndDate:</span><span *ngIf="project.endDate">{{project.endDate | date: "dd/MM/yyyy"}}</span></p>
           </div>
         </div>
       </div>
