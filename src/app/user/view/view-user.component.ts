@@ -1,7 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit } from "@angular/core";
+
 import { User } from "../models/user.model";
-import { ROUTES } from "src/app/routes";
-import { Router, ActivatedRoute } from "@angular/router";
 import { FormGroup, FormControl, AbstractControl } from "@angular/forms";
 
 @Component({

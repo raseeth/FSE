@@ -1,9 +1,27 @@
-<div *ngFor="let project of projects">
+<div class="my-3 border-bottom-dotted">
+  <div class="mb-3 row">
+    <div class="col-12 col-lg-8" [formGroup]="searchForm">
+      <input class="form-control" type="text" formControlName="search" placeholder="Search...">
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <div class="col-12">
+      <label class="mr-3 mr-md-3 col-form-label">Sort:</label>
+      <div class="btn-group btn-group-toggle" role="group" data-toggle="button">
+        <button type="button" class="btn btn-outline-secondary active" (click)="setSortBy('startdate')">Start Date</button>
+        <button type="button" class="btn btn-outline-secondary" (click)="setSortBy('enddate')">End Date</button>
+        <button type="button" class="btn btn-outline-secondary" (click)="setSortBy('priority')">Priority</button>
+        <button type="button" class="btn btn-outline-secondary" (click)="setSortBy('completed')">Completed</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngFor="let project of projectsToDisplay">
   <div class="my-3 border-bottom-dotted">
     <div class="row">
-      <div class="col-md-7">
+      <div class="col-md-8 col-lg-7">
         <div class="row">
-          <div class="col-12">
+          <div class="col-6">
             <p><span class="font-weight-bold">Project:</span> {{project.name}}</p>          
           </div>
         </div>

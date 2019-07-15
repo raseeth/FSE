@@ -5,11 +5,7 @@ import { ProjectComponent } from "./project.component";
 import { ROUTES } from "../routes";
 
 const projectRoutes: Routes = [
-    { path: ROUTES.PROJECT, component: ProjectComponent,
-        children: [
-            { path: "", redirectTo: ROUTES.ADD, pathMatch: "full" },
-        ],
-    }
+    { path: ROUTES.PROJECT, component: ProjectComponent }
 ];
 
 @NgModule({
