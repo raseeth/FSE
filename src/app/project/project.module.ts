@@ -15,6 +15,7 @@ import { ViewProjectComponent } from "./view/view-project.component";
 import { ProjectService } from "./services/project.service";
 import { AddProjectComponent } from "./add/add-project.component";
 import { EditProjectComponent } from "./edit/edit-project.component";
+import { SelectorModalComponent } from "../modals/selector-modal.component";
 
 @NgModule({
     imports: [
@@ -28,7 +29,8 @@ import { EditProjectComponent } from "./edit/edit-project.component";
         ProjectComponent,
         ViewProjectComponent,
         AddProjectComponent,
-        EditProjectComponent
+        EditProjectComponent,
+        SelectorModalComponent,
     ],
     providers: [
         ProjectServiceApiService,

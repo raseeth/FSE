@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit } from "@angular/core";
+import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges } from "@angular/core";
 
 import { User } from "../models/user.model";
 import { FormGroup, FormControl, AbstractControl } from "@angular/forms";
@@ -8,7 +8,7 @@ import { FormGroup, FormControl, AbstractControl } from "@angular/forms";
     templateUrl: "./view-user.component.html"
 })
 
-export class ViewUserComponent implements OnInit {
+export class ViewUserComponent implements OnInit, OnChanges {
   @Input() users: User[];
 
   @Output() deleteUser = new EventEmitter<number>();
@@ -37,6 +37,12 @@ export class ViewUserComponent implements OnInit {
       this.searchText = x;
       this.getUsers();
     });
+  }
+
+  ngOnChanges(change: SimpleChanges): void {
+    if (change["users"]) {
+      this.getUsers();
+    }
   }
 
   delete(id: number): void {

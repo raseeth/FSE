@@ -47,15 +47,19 @@
         </ng-container>
       </div>
     </div>
-    <!-- <div class="form-group row">
-      <label for="employeeId" class="col-md-3 col-lg-2 col-form-label">Employee ID:</label>
-      <div class="col-md-5">
-        <input class="form-control" type="number" formControlName="employeeId">
-        <ng-container *ngIf="formSubmitted && employeeIdControl.errors">
-          <span *ngIf="employeeIdControl.errors['required']" class="text-danger">Please enter employee id.</span>
+    <div class="form-group row">
+      <label for="manager" class="col-md-3 col-lg-2 col-form-label">Manager:</label>
+      <div class="col-md-8">
+        <div class="d-flex justify-content-between">
+          <input class="form-control mr-3" hidden type="number" formControlName="userId" disabled>
+          <input class="form-control mr-3" formControlName="manager" disabled>
+          <button class="btn btn-outline-primary" type="button" (click)="selectManager()">Select</button>
+        </div>
+        <ng-container *ngIf="formSubmitted && userIdControl.errors">
+          <span *ngIf="userIdControl.errors['required']" class="text-danger">Please select manager.</span>
         </ng-container>
       </div>
-    </div> -->
+    </div>
     <div class="form-group col-md-10 flex justify-content-end my-5 row pr-0">
       <div>
         <button class="btn btn-primary mr-3">Update</button>

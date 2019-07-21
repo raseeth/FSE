@@ -59,21 +59,11 @@ export class ProjectService {
         project.id,
         project.name,
         project.priority,
-        this.mapToUser(project.userDetail),
+        project.userDetail.id,
         project.numberOfTasks,
         project.startDate,
         project.endDate,
         project.isComplete);
-    }
-
-    private mapToUser(user: UserDetail): User {
-      if (user) {
-        return new User(
-          user.id,
-          user.firstName,
-          user.lastName,
-          user.employeeId);
-      }
     }
 
     private getCreateProjectRequest(project: Project): CreateProject {
@@ -82,7 +72,7 @@ export class ProjectService {
         priority: project.priority,
         startDate: project.startDate ? new Date(project.startDate) : undefined,
         endDate: project.endDate ? new Date(project.endDate) : undefined,
-        // userId: project.user.id
+        userId: project.userId
       } as ICreateProject);
     }
 
@@ -93,7 +83,7 @@ export class ProjectService {
         priority: project.priority,
         startDate: project.startDate ? new Date(project.startDate) : undefined,
         endDate: project.endDate ? new Date(project.endDate) : undefined,
-        // userId: project.user.id
+        userId: project.userId
       } as IUpdateProject);
     }
 }

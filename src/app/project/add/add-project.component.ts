@@ -1,9 +1,12 @@
-import { Component, Output, EventEmitter, OnInit } from "@angular/core";
+import { Component, Output, EventEmitter, OnInit, Input } from "@angular/core";
 import { FormGroup, AbstractControl, Validators, FormBuilder } from "@angular/forms";
 
 import { NotificationService } from "src/app/core/notification/notification.service";
 import { CustomValidators } from "src/app/validators/custom-validators";
 import { ProjectService } from "../services/project.service";
+import { SelectorModalService } from "src/app/modals/services/selector-modal.service";
+import { ReferenceData } from "src/app/modals/models/reference-data.model";
+
 
 @Component({
     selector: "add-project",
@@ -11,6 +14,7 @@ import { ProjectService } from "../services/project.service";
 })
 
 export class AddProjectComponent implements OnInit {
+    @Input() referenceDatas: ReferenceData[];
     @Output() reloadProject = new EventEmitter();
 
     projectForm: FormGroup;
@@ -19,6 +23,7 @@ export class AddProjectComponent implements OnInit {
     constructor(
       private fb: FormBuilder,
       private projectService: ProjectService,
+      private selectorModalService: SelectorModalService,
       private notificationService: NotificationService) {
       this.projectForm = this.fb.group({
         name: ["", [Validators.required, CustomValidators.whiteSpace]],
@@ -26,7 +31,8 @@ export class AddProjectComponent implements OnInit {
         startDate: [""],
         endDate: [""],
         priority: ["", [Validators.required, CustomValidators.priorityRange]],
-        // "manager": ["", [Validators.required]]
+        userId: ["", [Validators.required]],
+        manager: [""]
       });
     }
 
@@ -50,9 +56,21 @@ export class AddProjectComponent implements OnInit {
       return this.projectForm.get("endDate") as AbstractControl;
     }
 
+    get userIdControl(): AbstractControl {
+      return this.projectForm.get("userId") as AbstractControl;
+    }
+
+    get managerControl(): AbstractControl {
+      return this.projectForm.get("manager") as AbstractControl;
+    }
+
     ngOnInit(): void {
       this.priorityControl.setValue(0);
       this.registerDateValueChanges();
+    }
+
+    selectManager(): void {
+      this.selectorModalService.openSelectorModal("Project", this.referenceDatas, (item) => this.onSelectedUser(item));
     }
 
     addProject(): void {
@@ -123,5 +141,10 @@ export class AddProjectComponent implements OnInit {
 
     return date.getFullYear() + "-" + month + "-" + day;
     }
+  }
+
+  private onSelectedUser(referenceData: ReferenceData): void {
+    this.userIdControl.setValue(referenceData.id);
+    this.managerControl.setValue(referenceData.description);
   }
 }

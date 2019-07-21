@@ -5,6 +5,8 @@ import { NotificationService } from "src/app/core/notification/notification.serv
 import { CustomValidators } from "src/app/validators/custom-validators";
 import { ProjectService } from "../services/project.service";
 import { Project } from "../models/project.model";
+import { ReferenceData } from "src/app/modals/models/reference-data.model";
+import { SelectorModalService } from "src/app/modals/services/selector-modal.service";
 
 @Component({
     selector: "edit-project",
@@ -13,6 +15,7 @@ import { Project } from "../models/project.model";
 
 export class EditProjectComponent implements OnInit {
   @Input() projectToEdit: Project;
+  @Input() referenceDatas: ReferenceData[];
   @Output() reloadProject = new EventEmitter();
 
     projectForm: FormGroup;
@@ -23,6 +26,7 @@ export class EditProjectComponent implements OnInit {
     constructor(
       private fb: FormBuilder,
       private projectService: ProjectService,
+      private selectorModalService: SelectorModalService,
       private notificationService: NotificationService) {
       this.projectForm = this.fb.group({
         name: ["", [Validators.required, CustomValidators.whiteSpace]],
@@ -30,7 +34,8 @@ export class EditProjectComponent implements OnInit {
         startDate: [""],
         endDate: [""],
         priority: ["", [Validators.required, CustomValidators.priorityRange]],
-        // "manager": ["", [Validators.required]]
+        userId: ["", [Validators.required]],
+        manager: [""]
       });
     }
 
@@ -54,10 +59,22 @@ export class EditProjectComponent implements OnInit {
       return this.projectForm.get("endDate") as AbstractControl;
     }
 
+    get userIdControl(): AbstractControl {
+      return this.projectForm.get("userId") as AbstractControl;
+    }
+
+    get managerControl(): AbstractControl {
+      return this.projectForm.get("manager") as AbstractControl;
+    }
+
     ngOnInit(): void {
       this.id = this.projectToEdit.id;
       this.project = this.projectToEdit;
       this.initializeForm();
+    }
+
+    selectManager(): void {
+      this.selectorModalService.openSelectorModal("Project", this.referenceDatas, (item) => this.onSelectedUser(item));
     }
 
     editProject(): void {
@@ -86,11 +103,20 @@ export class EditProjectComponent implements OnInit {
   private initializeForm(): void {
     this.nameControl.setValue(this.project.name);
     this.priorityControl.setValue(this.project.priority);
+    this.userIdControl.setValue(this.project.userId);
+
+    if (this.project.userId > 0) {
+      const referenceData = this.referenceDatas.find(x => x.id === this.project.userId);
+      if (referenceData) {
+        this.managerControl.setValue(referenceData.description);
+      }
+    }
 
     this.nameControl.valueChanges.subscribe(x => this.project.name = x);
     this.priorityControl.valueChanges.subscribe(x => this.project.priority = x);
     this.startDateControl.valueChanges.subscribe(x => this.project.startDate = x);
     this.endDateControl.valueChanges.subscribe(x => this.project.endDate = x);
+    this.userIdControl.valueChanges.subscribe(x => this.project.userId = x);
 
     this.registerDateValueChanges();
   }
@@ -146,5 +172,10 @@ export class EditProjectComponent implements OnInit {
 
     return date.getFullYear() + "-" + month + "-" + day;
     }
+  }
+
+  private onSelectedUser(referenceData: ReferenceData): void {
+    this.userIdControl.setValue(referenceData.id);
+    this.managerControl.setValue(referenceData.description);
   }
 }

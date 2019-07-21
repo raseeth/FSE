@@ -11,6 +11,10 @@ import { ToasterComponent } from "./core/notification/toaster-component";
 import { UserModule } from "./user/user.module";
 import { ProjectModule } from "./project/project.module";
 
+import { ModalModule, BsModalRef, BsModalService } from "ngx-bootstrap/modal";
+import { SelectorModalComponent } from "./modals/selector-modal.component";
+import { SelectorModalService } from "./modals/services/selector-modal.service";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,10 +28,16 @@ import { ProjectModule } from "./project/project.module";
     UserModule,
     ProjectModule,
     ToasterModule,
+    ModalModule.forRoot(),
     AppRouterModule
   ],
   providers: [
-    ToasterService
+    ToasterService,
+    SelectorModalService,
+    BsModalService
+  ],
+  entryComponents: [
+    SelectorModalComponent
   ],
   bootstrap: [AppComponent]
 })
