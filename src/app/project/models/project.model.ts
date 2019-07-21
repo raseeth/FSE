@@ -11,4 +11,16 @@ export class Project {
         public endDate?: Date,
         public isComplete?: boolean) {
     }
+
+    clone(): Project {
+        return new Project (
+            this.id,
+            this.name,
+            this.priority,
+            this.user.clone(),
+            this.numberOfTasks,
+            this.startDate,
+            this.endDate,
+            this.isComplete);
+    }
 }

@@ -1,19 +1,23 @@
-import { Component, Output, EventEmitter, OnInit } from "@angular/core";
+import { Component, Output, EventEmitter, OnInit, Input } from "@angular/core";
 import { FormGroup, AbstractControl, Validators, FormBuilder } from "@angular/forms";
 
 import { NotificationService } from "src/app/core/notification/notification.service";
 import { CustomValidators } from "src/app/validators/custom-validators";
 import { ProjectService } from "../services/project.service";
+import { Project } from "../models/project.model";
 
 @Component({
-    selector: "add-project",
-    templateUrl: "./add-project.component.html"
+    selector: "edit-project",
+    templateUrl: "./edit-project.component.html"
 })
 
-export class AddProjectComponent implements OnInit {
-    @Output() reloadProject = new EventEmitter();
+export class EditProjectComponent implements OnInit {
+  @Input() projectToEdit: Project;
+  @Output() reloadProject = new EventEmitter();
 
     projectForm: FormGroup;
+    id: number;
+    project: Project;
     formSubmitted = false;
 
     constructor(
@@ -51,25 +55,26 @@ export class AddProjectComponent implements OnInit {
     }
 
     ngOnInit(): void {
-      this.priorityControl.setValue(0);
-      this.registerDateValueChanges();
+      this.id = this.projectToEdit.id;
+      this.project = this.projectToEdit;
+      this.initializeForm();
     }
 
-    addProject(): void {
+    editProject(): void {
       this.formSubmitted = true;
 
       if (!this.projectForm.valid) {
         return;
       }
 
-      this.projectService.post(this.projectForm.value).subscribe(() => {
-          this.notificationService.success("Project added successfully");
+      this.projectService.update(this.id, this.project).subscribe(() => {
+          this.notificationService.success("Project updated successfully");
           this.reloadProject.emit();
           this.formSubmitted = false;
           this.reset();
         },
         () => {
-          this.notificationService.error("Project could not be added!.");
+          this.notificationService.error("Project could not be updated!.");
       });
     }
 
@@ -78,9 +83,27 @@ export class AddProjectComponent implements OnInit {
       this.priorityControl.patchValue(0);
     }
 
+  private initializeForm(): void {
+    this.nameControl.setValue(this.project.name);
+    this.priorityControl.setValue(this.project.priority);
+
+    this.nameControl.valueChanges.subscribe(x => this.project.name = x);
+    this.priorityControl.valueChanges.subscribe(x => this.project.priority = x);
+    this.startDateControl.valueChanges.subscribe(x => this.project.startDate = x);
+    this.endDateControl.valueChanges.subscribe(x => this.project.endDate = x);
+
+    this.registerDateValueChanges();
+  }
+
   private registerDateValueChanges(): void {
-    this.startDateControl.disable();
-    this.endDateControl.disable();
+    if (!this.project.startDate) {
+      this.startDateControl.disable();
+      this.endDateControl.disable();
+    } else {
+      this.setStartDate(this.project.startDate);
+      this.setEndDate(this.project.endDate);
+      this.setDateControl.patchValue(true);
+    }
 
     this.setDateControl.valueChanges.subscribe(value => {
       if (value) {

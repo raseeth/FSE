@@ -4,8 +4,6 @@ import { FormGroup, AbstractControl, Validators, FormBuilder, FormControl } from
 import { NotificationService } from "src/app/core/notification/notification.service";
 import { CustomValidators } from "src/app/validators/custom-validators";
 import { UserService } from "../services/user.service";
-import { Router, ActivatedRoute } from "@angular/router";
-import { ROUTES } from "src/app/routes";
 import { User } from "../models/user.model";
 
 @Component({
@@ -23,8 +21,6 @@ export class EditUserComponent implements OnInit {
     formSubmitted = false;
 
     constructor(
-      private router: Router,
-      private route: ActivatedRoute,
       private fb: FormBuilder,
       private userService: UserService,
       private notificationService: NotificationService) {

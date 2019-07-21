@@ -14,6 +14,7 @@ import { ProjectRouterModule } from "./project-routing.module";
 import { ViewProjectComponent } from "./view/view-project.component";
 import { ProjectService } from "./services/project.service";
 import { AddProjectComponent } from "./add/add-project.component";
+import { EditProjectComponent } from "./edit/edit-project.component";
 
 @NgModule({
     imports: [
@@ -26,7 +27,8 @@ import { AddProjectComponent } from "./add/add-project.component";
     declarations: [
         ProjectComponent,
         ViewProjectComponent,
-        AddProjectComponent
+        AddProjectComponent,
+        EditProjectComponent
     ],
     providers: [
         ProjectServiceApiService,

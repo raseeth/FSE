@@ -14,6 +14,7 @@ export class ViewProjectComponent implements OnInit, OnChanges {
   @Input() projects: Project[];
 
   @Output() suspendProject = new EventEmitter<number>();
+  @Output() editProject = new EventEmitter<Project>();
 
   projectsToDisplay: Project[] = [];
   sortBy = "startdate";
@@ -21,9 +22,7 @@ export class ViewProjectComponent implements OnInit, OnChanges {
 
   searchForm: FormGroup;
 
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute) {
+  constructor() {
       this.searchForm = new FormGroup({
         search: new FormControl()
       });
@@ -52,8 +51,8 @@ export class ViewProjectComponent implements OnInit, OnChanges {
     this.suspendProject.emit(id);
   }
 
-  edit(id: number): void {
-    this.router.navigate([ROUTES.UPDATE, id], { relativeTo: this.route });
+  edit(project: Project): void {
+    this.editProject.emit(project.clone());
   }
 
   setSortBy(sortBy: string): void {

@@ -1,7 +1,8 @@
 <h2>Project</h2>
 <div class="col-lg-8">
-    <add-project (reloadProject)="reloadProject()"></add-project>
+    <add-project *ngIf="showAdd" (reloadProject)="reloadProject()"></add-project>
+    <edit-project *ngIf="showEdit" (reloadProject)="reloadProject()" [projectToEdit]="projectToEdit"></edit-project>
     <div class="mt-3 border-top-solid">
-        <view-project *ngIf="projects" [projects]="projects" (suspendProject)="suspend($event)"></view-project>
+        <view-project *ngIf="projects" [projects]="projects" (editProject)="editProject($event)" (reloadProject)="reloadProject()" (suspendProject)="suspend($event)"></view-project>
     </div>
 </div>

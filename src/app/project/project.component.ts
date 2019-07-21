@@ -9,6 +9,9 @@ import { NotificationService } from "../core/notification/notification.service";
 
 export class ProjectComponent implements OnInit {
     projects: Project[];
+    projectToEdit: Project;
+    showAdd = true;
+    showEdit = false;
 
     constructor(
         private projectService: ProjectService,
@@ -30,7 +33,15 @@ export class ProjectComponent implements OnInit {
     }
 
     reloadProject(): void {
+        this.showAdd = true;
+        this.showEdit = false;
         this.getProjects();
+    }
+
+    editProject(project: Project): void {
+        this.showAdd = false;
+        this.showEdit = true;
+        this.projectToEdit = project;
     }
 
     private getProjects(): void {
