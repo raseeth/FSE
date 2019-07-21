@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit } from "@angular/core";
+import { Component, Input, Output, EventEmitter, OnInit, SimpleChanges, OnChanges } from "@angular/core";
 import { FormGroup, FormControl, AbstractControl } from "@angular/forms";
 
 import { ROUTES } from "src/app/routes";
@@ -10,10 +10,10 @@ import { Project } from "../models/project.model";
     templateUrl: "./view-project.component.html"
 })
 
-export class ViewProjectComponent implements OnInit {
+export class ViewProjectComponent implements OnInit, OnChanges {
   @Input() projects: Project[];
 
-  @Output() suspendUser = new EventEmitter<number>();
+  @Output() suspendProject = new EventEmitter<number>();
 
   projectsToDisplay: Project[] = [];
   sortBy = "startdate";
@@ -42,8 +42,14 @@ export class ViewProjectComponent implements OnInit {
     });
   }
 
+  ngOnChanges(change: SimpleChanges): void {
+    if (change["projects"]) {
+      this.getProjects();
+    }
+  }
+
   suspend(id: number): void {
-    this.suspendUser.emit(id);
+    this.suspendProject.emit(id);
   }
 
   edit(id: number): void {
@@ -83,7 +89,7 @@ export class ViewProjectComponent implements OnInit {
         case "priority":
           return filteredProjects.sort((x, y) => (x.priority - y.priority));
         case "completed":
-            return filteredProjects.sort((x, y) => (x.isComplete < y.isComplete ? -1 : 1));
+            return filteredProjects.sort((x, y) => (x.isComplete > y.isComplete ? -1 : 1));
         default:
           return filteredProjects;
       }

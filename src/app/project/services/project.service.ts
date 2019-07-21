@@ -80,9 +80,9 @@ export class ProjectService {
       return new CreateProject({
         name: project.name,
         priority: project.priority,
-        startDate: project.startDate,
-        endDate: project.endDate,
-        userId: project.user.id
+        startDate: project.startDate ? new Date(project.startDate) : undefined,
+        endDate: project.endDate ? new Date(project.endDate) : undefined,
+        // userId: project.user.id
       } as ICreateProject);
     }
 

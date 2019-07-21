@@ -1,7 +1,7 @@
 <h2>Project</h2>
 <div class="col-lg-8">
-    <!-- <add-user (reloadProject)="reloadUser()"></add-user> -->
+    <add-project (reloadProject)="reloadProject()"></add-project>
     <div class="mt-3 border-top-solid">
-        <view-project *ngIf="projects" [projects]="projects" (suspendUser)="suspend($event)"></view-project>
+        <view-project *ngIf="projects" [projects]="projects" (suspendProject)="suspend($event)"></view-project>
     </div>
 </div>

@@ -1,0 +1,66 @@
+<div class="my-3">
+  <form [formGroup]="projectForm" (ngSubmit)="addProject()">
+    <div class="form-group row">
+      <label for="name" class="col-md-3 col-lg-2 col-form-label">Project:</label>
+      <div class="col-md-8 col-lg-9">
+        <input class="form-control" type="text" formControlName="name">
+        <ng-container *ngIf="formSubmitted && nameControl.errors">
+          <span *ngIf="nameControl.errors['required']" class="text-danger">Please enter project.</span>
+          <span *ngIf="nameControl.errors['whitespace']" class="text-danger">Please enter valid project.</span>
+        </ng-container>
+      </div>
+    </div>
+    <div class="form-check">
+      <div class="row">
+        <div class="col-md-4">
+          <input type="checkbox" formControlName="setDate" class="form-check-input col-form-label" id="setDate">
+          <label class="form-check-label" for="setDate">Set Start and End Date</label>
+        </div>
+        <div class="col-7">
+          <div class="row">
+            <div class="col-md-6 mb-3 mb-md-0">
+              <input class="form-control" type="date" formControlName="startDate" placeholder="Start Date">
+              <ng-container *ngIf="formSubmitted && startDateControl.invalid">
+                <span class="text-danger">Please enter a valid date.</span>
+              </ng-container>
+            </div>
+            <div class="col-md-6">
+              <input class="form-control" type="date" formControlName="endDate" placeholder="End Date">
+              <ng-container *ngIf="formSubmitted && endDateControl.invalid">
+                <span class="text-danger">Please enter a valid date.</span>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="priority" class="col-md-3 col-lg-2 col-form-label">Priority:</label>
+      <div class="col-md-8 col-lg-9">
+        <div class="d-flex justify-content-between">
+          <span>0</span>
+          <span>30</span>
+        </div>
+        <input type="range" class="custom-range" formControlName="priority" min="0" max="30" step="1">
+        <ng-container *ngIf="formSubmitted && priorityControl.invalid">
+          <span *ngIf="priorityControl.errors['range']" class="text-danger">Please choose priority.</span>
+        </ng-container>
+      </div>
+    </div>
+    <!-- <div class="form-group row">
+      <label for="employeeId" class="col-md-3 col-lg-2 col-form-label">Employee ID:</label>
+      <div class="col-md-5">
+        <input class="form-control" type="number" formControlName="employeeId">
+        <ng-container *ngIf="formSubmitted && employeeIdControl.errors">
+          <span *ngIf="employeeIdControl.errors['required']" class="text-danger">Please enter employee id.</span>
+        </ng-container>
+      </div>
+    </div> -->
+    <div class="form-group col-md-7 flex justify-content-end my-5 row pr-0">
+      <div>
+        <button class="btn btn-primary mr-3">Add</button>
+        <button class="btn btn-secondary" type="button" (click)="reset()">Reset</button>
+      </div>
+    </div>
+  </form>
+</div>

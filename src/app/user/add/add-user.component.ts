@@ -22,7 +22,7 @@ export class AddUserComponent {
       private notificationService: NotificationService) {
       this.userForm = this.fb.group({
         "firstName": ["", [Validators.required, CustomValidators.whiteSpace]],
-        "lastName": ["", [Validators.required, CustomValidators.whiteSpace]],
+        "lastName": [0, [Validators.required, CustomValidators.whiteSpace]],
         "employeeId": ["", [Validators.required]]
       });
     }
