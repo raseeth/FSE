@@ -8,11 +8,19 @@
     </div>
     <div class="col-12 col-lg-6 justify-content-between mt-3 mt-lg-0">
       <label class="mr-3 mr-md-3 col-form-label">Sort Task By:</label>
-      <div class="btn-group btn-group-toggle" role="group" data-toggle="button">
-        <button type="button" class="btn btn-outline-secondary active" (click)="setSortBy('startdate')">Start Date</button>
-        <button type="button" class="btn btn-outline-secondary" (click)="setSortBy('enddate')">End Date</button>
-        <button type="button" class="btn btn-outline-secondary" (click)="setSortBy('priority')">Priority</button>
-        <button type="button" class="btn btn-outline-secondary" (click)="setSortBy('completed')">Completed</button>
+      <div class="btn-group btn-group-toggle" data-toggle="buttons">
+        <label class="btn btn-secondary" (click)="setSortBy('startdate')">
+          <input type="radio" name="options" autocomplete="off" checked> Start Date
+        </label>
+        <label class="btn btn-secondary" (click)="setSortBy('enddate')">
+          <input type="radio" name="options" autocomplete="off"> End Date
+        </label>
+        <label class="btn btn-secondary" (click)="setSortBy('priority')">
+          <input type="radio" name="options" autocomplete="off"> Priority
+        </label>
+        <label class="btn btn-secondary" (click)="setSortBy('completed')">
+          <input type="radio" name="options" autocomplete="off"> Completed
+        </label>
       </div>
     </div>
   </div>
