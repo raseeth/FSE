@@ -82,9 +82,9 @@ export class ViewProjectComponent implements OnInit, OnChanges {
     if (filteredProjects) {
       switch (this.sortBy) {
         case "startdate":
-          return filteredProjects.sort((x, y) => (x.startDate < y.startDate ? -1 : 1));
+          return filteredProjects.sort((x, y) => this.getTime(x.startDate) - this.getTime(y.startDate));
         case "enddate":
-            return filteredProjects.sort((x, y) => (x.endDate < y.endDate ? -1 : 1));
+            return filteredProjects.sort((x, y) => this.getTime(x.endDate) - this.getTime(y.endDate));
         case "priority":
           return filteredProjects.sort((x, y) => (x.priority - y.priority));
         case "completed":
@@ -93,5 +93,9 @@ export class ViewProjectComponent implements OnInit, OnChanges {
           return filteredProjects;
       }
     }
+  }
+
+  private getTime(date?: Date) {
+    return date != null ? date.getTime() : 0;
   }
 }

@@ -1,6 +1,23 @@
-<div class="border-top">
-  <div *ngFor="let task of tasks">
-    <task-detail [task]="task" (refresh)="reloadTasks()"></task-detail>
+<div class="my-3 border-bottom-dotted">
+  <div class="mb-3 row">
+    <div class="col-12 col-lg-6" [formGroup]="searchForm">
+      <div class="d-flex justify-content-between">
+        <input class="form-control" type="text" formControlName="search" disabled placeholder="Search...">
+        <button class="btn btn-outline-primary ml-3" type="button" (click)="selectProject()">Select</button>
+      </div>
+    </div>
+    <div class="col-12 col-lg-6 justify-content-between mt-3 mt-lg-0">
+      <label class="mr-3 mr-md-3 col-form-label">Sort Task By:</label>
+      <div class="btn-group btn-group-toggle" role="group" data-toggle="button">
+        <button type="button" class="btn btn-outline-secondary active" (click)="setSortBy('startdate')">Start Date</button>
+        <button type="button" class="btn btn-outline-secondary" (click)="setSortBy('enddate')">End Date</button>
+        <button type="button" class="btn btn-outline-secondary" (click)="setSortBy('priority')">Priority</button>
+        <button type="button" class="btn btn-outline-secondary" (click)="setSortBy('completed')">Completed</button>
+      </div>
+    </div>
   </div>
+</div>
+<div *ngFor="let task of tasksToDisplay">
+    <task-detail [task]="task" (refresh)="reloadTasks()"></task-detail>
 </div>
 

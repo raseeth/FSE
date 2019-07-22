@@ -3,10 +3,12 @@ import { of } from "rxjs";
 import { TaskService } from "../services/task.service";
 import { ViewTaskComponent } from "./view-task.component";
 import { Task } from "../models/task.model";
+import { SelectorModalService } from "src/app/modals/services/selector-modal.service";
 
 describe("View task component", () => {
     let component: ViewTaskComponent;
     let taskService: TaskService;
+    let selectorModalService: SelectorModalService;
 
     let tasks: Task[];
 
@@ -19,7 +21,9 @@ describe("View task component", () => {
         taskService = jasmine.createSpyObj(TaskService.name, ["getTasks"]);
         (taskService.getTasks as jasmine.Spy).and.returnValue(of(tasks));
 
-        component = new ViewTaskComponent(taskService);
+        selectorModalService = jasmine.createSpyObj(SelectorModalService.name, ["openSelectorModal"]);
+
+        component = new ViewTaskComponent(taskService, selectorModalService);
     });
 
     describe("ngOnInit", () => {
@@ -51,6 +55,14 @@ describe("View task component", () => {
             expect(component.tasks).toBeDefined();
             expect(component.tasks.length).toBe(tasks.length);
             expect(component.tasks).toBe(tasks);
+        });
+    });
+
+    describe("selectProject", () => {
+        it("should call open selector modal method", () => {
+            component.selectProject();
+
+            expect(selectorModalService.openSelectorModal).toHaveBeenCalled();
         });
     });
 });

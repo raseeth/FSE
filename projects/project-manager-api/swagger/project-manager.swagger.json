@@ -864,6 +864,7 @@
         "UpdateTask": {
             "required": [
                 "id",
+                "projectId",
                 "userId",
                 "name",
                 "priority"
@@ -876,6 +877,10 @@
                 },
                 "parentTask": {
                     "$ref": "#/definitions/UpdateParentTask"
+                },
+                "projectId": {
+                    "format": "int32",
+                    "type": "integer"
                 },
                 "userId": {
                     "format": "int32",

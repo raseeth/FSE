@@ -1691,6 +1691,7 @@ export interface ICreateParentTask {
 export class UpdateTask implements IUpdateTask {
     id: number;
     parentTask?: UpdateParentTask | undefined;
+    projectId: number;
     userId: number;
     name: string;
     priority: number;
@@ -1711,6 +1712,7 @@ export class UpdateTask implements IUpdateTask {
         if (data) {
             this.id = data["id"];
             this.parentTask = data["parentTask"] ? UpdateParentTask.fromJS(data["parentTask"]) : <any>undefined;
+            this.projectId = data["projectId"];
             this.userId = data["userId"];
             this.name = data["name"];
             this.priority = data["priority"];
@@ -1731,6 +1733,7 @@ export class UpdateTask implements IUpdateTask {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["parentTask"] = this.parentTask ? this.parentTask.toJSON() : <any>undefined;
+        data["projectId"] = this.projectId;
         data["userId"] = this.userId;
         data["name"] = this.name;
         data["priority"] = this.priority;
@@ -1744,6 +1747,7 @@ export class UpdateTask implements IUpdateTask {
 export interface IUpdateTask {
     id: number;
     parentTask?: UpdateParentTask | undefined;
+    projectId: number;
     userId: number;
     name: string;
     priority: number;
