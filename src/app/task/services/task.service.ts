@@ -108,6 +108,10 @@ export class TaskService {
 
       let createParentTask: CreateParentTask;
 
+      if (!task.isParent) {
+        task.isParent = false;
+      }
+
       if (!task.isParent && task.parentTaskId) {
         createParentTask = new CreateParentTask({
           id: task.parentTaskId,
@@ -130,6 +134,10 @@ export class TaskService {
   private getUpdateTaskRequest(task: Task): UpdateTask {
 
     let updateParentTask: UpdateParentTask;
+
+    if (!task.isParent) {
+      task.isParent = false;
+    }
 
     if (!task.isParent && task.parentTaskId) {
       updateParentTask = new UpdateParentTask({
