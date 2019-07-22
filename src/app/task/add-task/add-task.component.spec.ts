@@ -4,19 +4,35 @@ import { of } from "rxjs";
 import { AddTaskComponent } from "./add-task.component";
 import { TaskService } from "../services/task.service";
 import { NotificationService } from "src/app/core/notification/notification.service";
+import { ProjectService } from "src/app/project/services/project.service";
+import { UserService } from "src/app/user/services/user.service";
+import { ReferenceData } from "src/app/modals/models/reference-data.model";
 
 describe("Add task component", () => {
     let component: AddTaskComponent;
     let taskService: TaskService;
+    let projectService: ProjectService;
+    let userService: UserService;
     let notificationService: NotificationService;
 
     beforeEach(() => {
         notificationService = jasmine.createSpyObj(NotificationService.name, ["success", "error"]);
         taskService = jasmine.createSpyObj(TaskService.name, ["post", "getParentTasks"]);
         (taskService.post as jasmine.Spy).and.returnValue(of({}));
-        (taskService.getParentTasks as jasmine.Spy).and.returnValue(of(["parent task 1"]));
+        (taskService.getParentTasks as jasmine.Spy).and.returnValue(of([new ReferenceData(1, "Parent Task 1")]));
 
-        component = new AddTaskComponent(new FormBuilder(), notificationService, taskService);
+        projectService = jasmine.createSpyObj(ProjectService.name, ["getProjects"]);
+        (projectService.getProjects as jasmine.Spy).and.returnValue(of([new ReferenceData(1, "Project 1")]));
+
+        userService = jasmine.createSpyObj(UserService.name, ["getUsers"]);
+        (userService.getUsers as jasmine.Spy).and.returnValue(of([new ReferenceData(1, "User 1")]));
+
+        component = new AddTaskComponent(
+            new FormBuilder(),
+            notificationService,
+            taskService,
+            projectService,
+            userService);
     });
 
     describe("ngOnInit", () => {
@@ -24,7 +40,8 @@ describe("Add task component", () => {
             component.ngOnInit();
 
             expect(taskService.getParentTasks).toHaveBeenCalled();
-            expect(component.parentTasks$).toBeDefined();
+            expect(projectService.getProjects).toHaveBeenCalled();
+            expect(userService.getUsers).toHaveBeenCalled();
         });
     });
 
@@ -34,7 +51,7 @@ describe("Add task component", () => {
                 name: ""
             });
 
-            component.add([]);
+            component.add();
             expect(component.formSubmitted).toBeTruthy();
             expect(taskService.post).not.toHaveBeenCalled();
         });
@@ -42,12 +59,12 @@ describe("Add task component", () => {
         it("should call post of task service if form is valid", () => {
             component.taskForm.patchValue({
                 name: "Task 1",
-                parentTask: "Parent task 1",
+                parentTaskId: 1,
                 priority: 1,
                 startDate: "2018-01-01"
             });
 
-            component.add([]);
+            component.add();
 
             expect(taskService.post).toHaveBeenCalled();
             expect(notificationService.success).toHaveBeenCalled();

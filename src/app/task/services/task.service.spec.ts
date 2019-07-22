@@ -4,8 +4,13 @@ import {
     TaskDetail,
     ParentTask as ParentTaskApi,
     TaskService as TaskApiService,
-    ParentTaskService as ParentTaskApiService,
     ITaskDetail,
+    ProjectDetail,
+    IProjectDetail,
+    UserDetail,
+    IUserDetail,
+    IParentTask,
+    ParentTask,
 } from "projects/project-manager-api/proxy/project-manager-api.service";
 
 import { Task } from "../models/task.model";
@@ -15,36 +20,38 @@ describe("Task service", () => {
     let target: TaskService;
 
     let taskApiService: TaskApiService;
-    let parentTaskApiService: ParentTaskApiService;
     let taskApi: TaskDetail;
-    let parentTaskApi: ParentTaskApi;
 
     beforeEach(() => {
         taskApi = new TaskDetail({
             id: 1,
             name: "Task 1",
             priority: 1,
+            parentTask: new ParentTask({
+                id: 1,
+                name: "Project 1"
+            } as IParentTask),
+            project: new ProjectDetail({
+                id: 1,
+                name: "Project 1"
+            } as IProjectDetail),
+            user: new UserDetail({
+                id: 1,
+                name: "User 1"
+            } as IUserDetail),
             startDate: new Date("2018-01-01"),
             endDate: new Date("2019-01-01"),
             isComplete: true
         } as ITaskDetail);
 
-        parentTaskApi = new ParentTaskApi({
-            id: 1,
-            name: "parent task 1"
-        });
-
         taskApiService = jasmine.createSpyObj(TaskApiService.name, ["get", "query", "post", "put", "end"]);
         (taskApiService.get as jasmine.Spy).and.returnValue(of(taskApi));
         (taskApiService.query as jasmine.Spy).and.returnValue(of([taskApi]));
         (taskApiService.post as jasmine.Spy).and.returnValue(of({}));
-        (taskApiService.post as jasmine.Spy).and.returnValue(of({}));
-        (taskApiService.post as jasmine.Spy).and.returnValue(of({}));
+        (taskApiService.put as jasmine.Spy).and.returnValue(of({}));
+        (taskApiService.end as jasmine.Spy).and.returnValue(of({}));
 
-        parentTaskApiService = jasmine.createSpyObj(ParentTaskApiService.name, ["query"]);
-        (parentTaskApiService.query as jasmine.Spy).and.returnValue(of([parentTaskApi]));
-
-        target = new TaskService(taskApiService, parentTaskApiService);
+        target = new TaskService(taskApiService);
     });
 
     it("should create the service", () => {
@@ -83,7 +90,7 @@ describe("Task service", () => {
 
         describe("post", () => {
             it("should call post of task service", () => {
-                target.post(Task.Default, []);
+                target.post(Task.Default);
 
                 expect(taskApiService.post).toHaveBeenCalled();
             });
@@ -91,7 +98,7 @@ describe("Task service", () => {
 
         describe("updateTask", () => {
             it("should call put of task service", () => {
-                target.updateTask(Task.Default, []);
+                target.updateTask(Task.Default);
 
                 expect(taskApiService.put).toHaveBeenCalled();
             });
@@ -106,19 +113,17 @@ describe("Task service", () => {
         });
     });
 
-    describe("Parent task api service", () => {
-        describe("getParentTasks", () => {
-            it("should call query of parent task service", () => {
-                target.getParentTasks();
+    describe("getParentTasks", () => {
+        it("should call query of parent task service", () => {
+            target.getParentTasks();
 
-                expect(parentTaskApiService.query).toHaveBeenCalled();
-            });
+            expect(taskApiService.query).toHaveBeenCalled();
+        });
 
-            it("should return expected tasks", () => {
-                target.getParentTasks().subscribe(response => {
-                    expect(response.length).toBe(1);
-                    expect(response[0].id).toBe(parentTaskApi.id);
-                });
+        it("should return expected tasks", () => {
+            target.getParentTasks().subscribe(response => {
+                expect(response.length).toBe(1);
+                expect(response[0].id).toBe(taskApi.id);
             });
         });
     });

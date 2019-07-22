@@ -1,8 +1,5 @@
-<div class="my-3">
-    <search-criteria (filter)="filter($event)"></search-criteria>
-</div>
 <div class="border-top">
-  <div *ngFor="let task of tasks | taskFilter: searchCriteria">
+  <div *ngFor="let task of tasks">
     <task-detail [task]="task" (refresh)="reloadTasks()"></task-detail>
   </div>
 </div>

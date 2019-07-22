@@ -766,9 +766,7 @@
         "TaskDetail": {
             "required": [
                 "name",
-                "priority",
-                "startDate",
-                "endDate"
+                "priority"
             ],
             "type": "object",
             "properties": {
@@ -802,6 +800,9 @@
                 "endDate": {
                     "format": "date-time",
                     "type": "string"
+                },
+                "isParent": {
+                    "type": "boolean"
                 }
             }
         },
@@ -810,9 +811,7 @@
                 "projectId",
                 "userId",
                 "name",
-                "priority",
-                "startDate",
-                "endDate"
+                "priority"
             ],
             "type": "object",
             "properties": {
@@ -841,12 +840,15 @@
                 "endDate": {
                     "format": "date-time",
                     "type": "string"
+                },
+                "isParent": {
+                    "type": "boolean"
                 }
             }
         },
         "CreateParentTask": {
             "required": [
-                "name"
+                "id"
             ],
             "type": "object",
             "properties": {
@@ -864,9 +866,7 @@
                 "id",
                 "userId",
                 "name",
-                "priority",
-                "startDate",
-                "endDate"
+                "priority"
             ],
             "type": "object",
             "properties": {
@@ -895,12 +895,15 @@
                 "endDate": {
                     "format": "date-time",
                     "type": "string"
+                },
+                "isParent": {
+                    "type": "boolean"
                 }
             }
         },
         "UpdateParentTask": {
             "required": [
-                "name"
+                "id"
             ],
             "type": "object",
             "properties": {

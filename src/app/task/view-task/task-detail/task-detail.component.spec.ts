@@ -23,7 +23,7 @@ describe("Task detail component", () => {
             }
         };
 
-        task = new Task(1, "Task 1", undefined, 1, new Date("2018-01-01"));
+        task = new Task(1, "Task 1", 1, "Project 1", true, undefined, undefined, 1, 1, "User 1");
 
         notificationService = jasmine.createSpyObj(NotificationService.name, ["success", "error"]);
         mockRouter = jasmine.createSpyObj(Router.name, ["navigate"]);

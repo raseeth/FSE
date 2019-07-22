@@ -88,7 +88,7 @@ describe("Project service", () => {
 
     describe("post", () => {
         it("should call post of project api service", () => {
-            target.post(new Project(undefined, "Project", 1, new User(1, "first", "lastname", 11)));
+            target.post(new Project(undefined, "Project", 1, 1, 11));
 
             expect(projectApiService.post).toHaveBeenCalled();
         });
@@ -96,7 +96,7 @@ describe("Project service", () => {
 
     describe("update", () => {
         it("should call put of project api service", () => {
-            target.update(1, new Project(1, "Project", 1, new User(1, "first", "lastname", 11)));
+            target.update(1, new Project(1, "Project", 1, 1, 11));
 
             expect(projectApiService.put).toHaveBeenCalled();
         });

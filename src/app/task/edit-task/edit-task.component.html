@@ -1,8 +1,11 @@
 <div class="my-3 row">
   <div class="col-md-8">
     <ng-container *ngIf="editForm">
-      <form [formGroup]="editForm" (ngSubmit)="update(parentTasks)">
-        <task-form [taskForm]="taskForm" [formSubmitted]="formSubmitted" [parentTasks]="parentTasks"></task-form>
+      <form [formGroup]="editForm" (ngSubmit)="update()">
+        <task-form [taskForm]="taskForm" [formSubmitted]="formSubmitted"
+          [parentTasks]="parentTasks"
+          [projects]="projects"
+          [users]="users"></task-form>
         <div class="form-group my-5 row">
           <div class="col-md-8  col-md-9 offset-md-4 offset-lg-3">
             <button class="btn btn-primary mr-3">Update Task</button>

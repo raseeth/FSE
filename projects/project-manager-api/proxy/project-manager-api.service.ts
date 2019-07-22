@@ -1520,8 +1520,9 @@ export class TaskDetail implements ITaskDetail {
     user?: UserDetail | undefined;
     name: string;
     priority: number;
-    startDate: Date;
-    endDate: Date;
+    startDate?: Date | undefined;
+    endDate?: Date | undefined;
+    isParent?: boolean | undefined;
 
     constructor(data?: ITaskDetail) {
         if (data) {
@@ -1543,6 +1544,7 @@ export class TaskDetail implements ITaskDetail {
             this.priority = data["priority"];
             this.startDate = data["startDate"] ? new Date(data["startDate"].toString()) : <any>undefined;
             this.endDate = data["endDate"] ? new Date(data["endDate"].toString()) : <any>undefined;
+            this.isParent = data["isParent"];
         }
     }
 
@@ -1564,6 +1566,7 @@ export class TaskDetail implements ITaskDetail {
         data["priority"] = this.priority;
         data["startDate"] = this.startDate ? this.startDate.toISOString() : <any>undefined;
         data["endDate"] = this.endDate ? this.endDate.toISOString() : <any>undefined;
+        data["isParent"] = this.isParent;
         return data; 
     }
 }
@@ -1576,8 +1579,9 @@ export interface ITaskDetail {
     user?: UserDetail | undefined;
     name: string;
     priority: number;
-    startDate: Date;
-    endDate: Date;
+    startDate?: Date | undefined;
+    endDate?: Date | undefined;
+    isParent?: boolean | undefined;
 }
 
 export class CreateTask implements ICreateTask {
@@ -1586,8 +1590,9 @@ export class CreateTask implements ICreateTask {
     userId: number;
     name: string;
     priority: number;
-    startDate: Date;
-    endDate: Date;
+    startDate?: Date | undefined;
+    endDate?: Date | undefined;
+    isParent?: boolean | undefined;
 
     constructor(data?: ICreateTask) {
         if (data) {
@@ -1607,6 +1612,7 @@ export class CreateTask implements ICreateTask {
             this.priority = data["priority"];
             this.startDate = data["startDate"] ? new Date(data["startDate"].toString()) : <any>undefined;
             this.endDate = data["endDate"] ? new Date(data["endDate"].toString()) : <any>undefined;
+            this.isParent = data["isParent"];
         }
     }
 
@@ -1626,6 +1632,7 @@ export class CreateTask implements ICreateTask {
         data["priority"] = this.priority;
         data["startDate"] = this.startDate ? this.startDate.toISOString() : <any>undefined;
         data["endDate"] = this.endDate ? this.endDate.toISOString() : <any>undefined;
+        data["isParent"] = this.isParent;
         return data; 
     }
 }
@@ -1636,13 +1643,14 @@ export interface ICreateTask {
     userId: number;
     name: string;
     priority: number;
-    startDate: Date;
-    endDate: Date;
+    startDate?: Date | undefined;
+    endDate?: Date | undefined;
+    isParent?: boolean | undefined;
 }
 
 export class CreateParentTask implements ICreateParentTask {
-    id?: number | undefined;
-    name: string;
+    id: number;
+    name?: string | undefined;
 
     constructor(data?: ICreateParentTask) {
         if (data) {
@@ -1676,8 +1684,8 @@ export class CreateParentTask implements ICreateParentTask {
 }
 
 export interface ICreateParentTask {
-    id?: number | undefined;
-    name: string;
+    id: number;
+    name?: string | undefined;
 }
 
 export class UpdateTask implements IUpdateTask {
@@ -1686,8 +1694,9 @@ export class UpdateTask implements IUpdateTask {
     userId: number;
     name: string;
     priority: number;
-    startDate: Date;
-    endDate: Date;
+    startDate?: Date | undefined;
+    endDate?: Date | undefined;
+    isParent?: boolean | undefined;
 
     constructor(data?: IUpdateTask) {
         if (data) {
@@ -1707,6 +1716,7 @@ export class UpdateTask implements IUpdateTask {
             this.priority = data["priority"];
             this.startDate = data["startDate"] ? new Date(data["startDate"].toString()) : <any>undefined;
             this.endDate = data["endDate"] ? new Date(data["endDate"].toString()) : <any>undefined;
+            this.isParent = data["isParent"];
         }
     }
 
@@ -1726,6 +1736,7 @@ export class UpdateTask implements IUpdateTask {
         data["priority"] = this.priority;
         data["startDate"] = this.startDate ? this.startDate.toISOString() : <any>undefined;
         data["endDate"] = this.endDate ? this.endDate.toISOString() : <any>undefined;
+        data["isParent"] = this.isParent;
         return data; 
     }
 }
@@ -1736,13 +1747,14 @@ export interface IUpdateTask {
     userId: number;
     name: string;
     priority: number;
-    startDate: Date;
-    endDate: Date;
+    startDate?: Date | undefined;
+    endDate?: Date | undefined;
+    isParent?: boolean | undefined;
 }
 
 export class UpdateParentTask implements IUpdateParentTask {
-    id?: number | undefined;
-    name: string;
+    id: number;
+    name?: string | undefined;
 
     constructor(data?: IUpdateParentTask) {
         if (data) {
@@ -1776,8 +1788,8 @@ export class UpdateParentTask implements IUpdateParentTask {
 }
 
 export interface IUpdateParentTask {
-    id?: number | undefined;
-    name: string;
+    id: number;
+    name?: string | undefined;
 }
 
 export class CreateUser implements ICreateUser {

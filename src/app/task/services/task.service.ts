@@ -4,9 +4,7 @@ import { map, shareReplay, take } from "rxjs/operators";
 
 import {
   TaskDetail,
-  ParentTask as ParentTaskApi,
   TaskService as TaskApiService,
-  ParentTaskService as ParentTaskApiService,
   ICreateTask,
   CreateTask,
   CreateParentTask,
@@ -23,7 +21,7 @@ import { ParentTask } from "../models/parent-task.model";
 @Injectable()
 export class TaskService {
 
-    constructor(private taskApiService: TaskApiService, private parentTaskApiService: ParentTaskApiService) {
+    constructor(private taskApiService: TaskApiService) {
     }
 
     getTasks(): Observable<Task[]> {
@@ -31,19 +29,19 @@ export class TaskService {
     }
 
     getParentTasks(): Observable<ParentTask[]> {
-      return this.parentTaskApiService.query().pipe(map(parentTasks => this.mapToParentTasks(parentTasks)), shareReplay());
+      return this.getTasks().pipe(map(parentTasks => this.mapToParentTasks(parentTasks)), shareReplay());
     }
 
     get(id: number): Observable<Task> {
       return this.taskApiService.get(id).pipe(map(response => this.mapToTask(response)), shareReplay());
     }
 
-    post(task: Task, parentTasks: ParentTask[]): Observable<any> {
-      return this.taskApiService.post(this.getCreateTaskRequest(task, parentTasks));
+    post(task: Task): Observable<any> {
+      return this.taskApiService.post(this.getCreateTaskRequest(task));
     }
 
-    updateTask(task: Task, parentTasks: ParentTask[]): Observable<any> {
-      return this.taskApiService.put(task.id, this.getUpdateTaskRequest(task, parentTasks));
+    updateTask(task: Task): Observable<any> {
+      return this.taskApiService.put(task.id, this.getUpdateTaskRequest(task));
     }
 
     endTask(id: number): Observable<any> {
@@ -72,7 +70,7 @@ export class TaskService {
       return this.getTask(response);
     }
 
-    private mapToParentTasks(response: ParentTaskApi[]): ParentTask[] {
+    private mapToParentTasks(response: Task[]): ParentTask[] {
       if (!response) {
         return;
       }
@@ -93,29 +91,28 @@ export class TaskService {
       return new Task(
           task.id,
           task.name,
+          task.project.id,
+          task.project.name,
+          task.isParent,
+          task.parentTask ? task.parentTask.id : undefined,
           task.parentTask ? task.parentTask.name : undefined,
           task.priority,
-          new Date(task.startDate),
+          task.user ? task.user.id : undefined,
+          task.user ? `${task.user.firstName} ${task.user.lastName}` : undefined,
+          task.startDate ? new Date(task.startDate) : undefined,
           task.endDate ? new Date(task.endDate) : undefined,
           task.isComplete);
     }
 
-    private getCreateTaskRequest(task: Task, parentTasks: ParentTask[]): CreateTask {
+    private getCreateTaskRequest(task: Task): CreateTask {
 
       let createParentTask: CreateParentTask;
 
-      if (task.parentTaskName) {
+      if (!task.isParent && task.parentTaskId) {
         createParentTask = new CreateParentTask({
+          id: task.parentTaskId,
           name: task.parentTaskName
         } as ICreateParentTask);
-
-        if (parentTasks) {
-          const parentTask = parentTasks.find(x => x.name.toLowerCase() === task.parentTaskName.toLowerCase());
-
-          if (parentTask) {
-            createParentTask.id = parentTask.id;
-          }
-        }
       }
 
       return new CreateTask({
@@ -123,35 +120,34 @@ export class TaskService {
         parentTask: createParentTask,
         priority: task.priority,
         startDate: task.startDate,
-        endDate: task.endDate
+        endDate: task.endDate,
+        projectId: task.projectId,
+        userId: task.userId,
+        isParent: task.isParent
       } as ICreateTask);
     }
 
-    private getUpdateTaskRequest(task: Task, parentTasks: ParentTask[]): UpdateTask {
+  private getUpdateTaskRequest(task: Task): UpdateTask {
 
-      let updateParentTask: UpdateParentTask;
+    let updateParentTask: UpdateParentTask;
 
-      if (task.parentTaskName) {
-        updateParentTask = new UpdateParentTask({
-          name: task.parentTaskName
-        } as IUpdateParentTask);
-
-        if (parentTasks) {
-          const parentTask = parentTasks.find(x => x.name.toLowerCase() === task.parentTaskName.toLowerCase());
-
-          if (parentTask) {
-            updateParentTask.id = parentTask.id;
-          }
-        }
-      }
-
-      return new UpdateTask({
-        id: task.id,
-        name: task.name,
-        parentTask: updateParentTask,
-        priority: task.priority,
-        startDate: task.startDate,
-        endDate: task.endDate
-      } as IUpdateTask);
+    if (!task.isParent && task.parentTaskId) {
+      updateParentTask = new UpdateParentTask({
+        id: task.parentTaskId,
+        name: task.parentTaskName
+      } as IUpdateParentTask);
     }
+
+    return new UpdateTask({
+      id: task.id,
+      name: task.name,
+      parentTask: updateParentTask,
+      priority: task.priority,
+      startDate: task.startDate,
+      endDate: task.endDate,
+      projectId: task.projectId,
+      userId: task.userId,
+      isParent: task.isParent
+    } as IUpdateTask);
+  }
 }

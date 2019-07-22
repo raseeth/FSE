@@ -16,10 +16,8 @@ import { TaskRouterModule } from "./task-routing.module";
 import { ViewTaskComponent } from "./view-task/view-task.component";
 import { AddTaskComponent } from "./add-task/add-task.component";
 import { TaskDetailComponent } from "./view-task/task-detail/task-detail.component";
-import { SearchCriteriaComponent } from "./view-task/search-criteria/search-criteria.component";
 import { TaskFormComponent } from "./task-form/task-form.component";
 import { EditTaskComponent } from "./edit-task/edit-task.component";
-import { TaskFilterPipe } from "./view-task/task-filter-pipe/task-filter.pipe";
 
 @NgModule({
     imports: [
@@ -34,10 +32,8 @@ import { TaskFilterPipe } from "./view-task/task-filter-pipe/task-filter.pipe";
         ViewTaskComponent,
         AddTaskComponent,
         TaskDetailComponent,
-        SearchCriteriaComponent,
         TaskFormComponent,
         EditTaskComponent,
-        TaskFilterPipe
     ],
     providers: [
         TaskService,

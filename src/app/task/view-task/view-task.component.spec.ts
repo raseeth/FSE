@@ -3,7 +3,6 @@ import { of } from "rxjs";
 import { TaskService } from "../services/task.service";
 import { ViewTaskComponent } from "./view-task.component";
 import { Task } from "../models/task.model";
-import { SearchCriteria } from "../models/search-criteria.model";
 
 describe("View task component", () => {
     let component: ViewTaskComponent;
@@ -14,8 +13,8 @@ describe("View task component", () => {
     beforeEach(() => {
 
         tasks = [
-            new Task(1, "Task 1", undefined, 1, new Date("2018-01-01")),
-            new Task(2, "Task 2", "Task 1", 2, new Date("2018-01-01"))
+            new Task(1, "Task 1", 1, "Project 1", true, undefined, undefined, 1, 1, "User 1"),
+            new Task(2, "Task 2", 2, "Project 2", true, undefined, undefined, 1, 2, "User 2")
         ];
         taskService = jasmine.createSpyObj(TaskService.name, ["getTasks"]);
         (taskService.getTasks as jasmine.Spy).and.returnValue(of(tasks));
@@ -52,16 +51,6 @@ describe("View task component", () => {
             expect(component.tasks).toBeDefined();
             expect(component.tasks.length).toBe(tasks.length);
             expect(component.tasks).toBe(tasks);
-        });
-    });
-
-    describe("filter", () => {
-        it("should assing expected tasks", () => {
-            const searchCriteria = new SearchCriteria("task 1", "parent task");
-            component.filter(searchCriteria);
-
-            expect(component.searchCriteria).toBeDefined();
-            expect(component.searchCriteria).toBe(searchCriteria);
         });
     });
 });
